@@ -311,7 +311,7 @@ nav a:hover { color: var(--gold); }
   font-family: 'DM Serif Display', serif;
   font-style: italic;
   font-size: clamp(3.5rem, 11vw, 7rem);
-  color: var(--wine);
+  color: var(--mauve-light);
   line-height: 0.9;
   display: block;
   letter-spacing: -0.01em;
@@ -327,7 +327,7 @@ nav a:hover { color: var(--gold); }
 
 .hero-script {
   font-family: 'Sacramento', cursive;
-  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
   color: var(--gold);
   margin-top: 1.2rem;
   display: block;
@@ -359,7 +359,7 @@ nav a:hover { color: var(--gold); }
   font-family: 'DM Serif Display', serif;
   font-style: italic;
   font-size: clamp(1.5rem, 4.5vw, 2.6rem);
-  color: var(--wine);
+  color: var(--mauve-light);
   letter-spacing: 0.04em;
   display: block;
   opacity: 0;
@@ -371,7 +371,7 @@ nav a:hover { color: var(--gold); }
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--wine-dark);
+  color: var(--mauve-mid);
   margin-top: 0.5rem;
   display: block;
   opacity: 0;
@@ -396,16 +396,17 @@ nav a:hover { color: var(--gold); }
   gap: 6px;
   opacity: 0;
   animation: riseIn 1s ease 2s forwards;
+  white-space: nowrap;
 }
 .scroll-cue span {
   font-size: 8.5px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--mauve-mid);
+  color: var(--wine-dark);
 }
 .scroll-bar {
   width: 1px; height: 32px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
+  background: linear-gradient(to bottom, var(--wine), transparent);
   animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse {
@@ -872,6 +873,55 @@ footer {
   padding-bottom: 1.25rem;
 }
 
+/* ── SECRET BOX ── */
+.secret-box {
+  border: 1px solid rgba(139,26,74,0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(139,26,74,0.06);
+}
+.secret-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--wine);
+  transition: color 0.2s;
+}
+.secret-btn:hover { color: var(--wine-dark); }
+.secret-lock {
+  color: var(--gold-dark);
+  transition: transform 0.4s ease;
+  flex-shrink: 0;
+}
+.secret-lock.open { transform: rotate(-20deg); }
+.secret-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  padding: 0 2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--wine-dark);
+  line-height: 1.85;
+  text-align: left;
+}
+.secret-content.open {
+  max-height: 600px;
+  padding: 0 2rem 2rem;
+}
+
 /* ── REVEAL ON SCROLL ── */
 .reveal {
   opacity: 0;
@@ -894,73 +944,54 @@ footer {
 <body>
 
 <!-- ═══════════════ WACHTWOORDSCHERM ═══════════════ -->
-<div id="password-screen">
-  <div class="pw-blob">
-    <svg viewBox="0 0 560 700" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M165,50 C200,20 360,20 395,50 C430,80 450,110 440,140 C430,170 450,200 440,230 C430,260 450,290 440,320 C430,350 450,380 440,410 C430,440 450,470 440,500 C430,530 450,560 440,590 C430,620 400,660 360,670 C320,680 240,680 200,670 C160,660 130,620 120,590 C110,560 130,530 120,500 C110,470 130,440 120,410 C110,380 130,350 120,320 C110,290 130,260 120,230 C110,200 130,170 120,140 C110,110 130,80 165,50 Z" fill="#C9A8C0"/>
+<div id="password-screen" style="position:fixed; inset:0; z-index:9999; background:var(--mauve-light); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center;">
+  <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;">
+    <svg id="pwblobsvg" viewBox="0 0 340 560" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:min(500px, 85vw); height:auto;">
+      <path d="M38,20 C18,80 18,140 38,200 C18,260 18,320 38,380 C18,440 18,500 38,540" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
+      <path d="M302,20 C322,80 322,140 302,200 C322,260 322,320 302,380 C322,440 322,500 302,540" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
+      <path id="pwblobpath" fill="#8B1A4A"/>
     </svg>
   </div>
-  <div class="pw-inner">
-    <div class="pw-names">
-      T | L
+  <div style="position:relative; z-index:1; display:flex; flex-direction:column; align-items:center;">
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(3rem, 10vw, 6rem); color:var(--mauve-light); line-height:1; margin-bottom:0.2rem;">T | L</div>
+    <span style="font-family:'Sacramento',cursive; font-size:clamp(2.4rem, 6vw, 3.8rem); color:var(--gold); display:block; margin-bottom:1.5rem;">gaan trouwen</span>
+    <div style="display:flex; align-items:center; gap:0.7rem; margin-bottom:1.5rem;">
+      <div style="width:44px; height:1px; background:var(--gold); opacity:0.5;"></div>
+      <div style="width:5px; height:5px; background:var(--gold); transform:rotate(45deg);"></div>
+      <div style="width:44px; height:1px; background:var(--gold); opacity:0.5;"></div>
     </div>
-    <span class="pw-script">gaan trouwen</span>
-    <p class="pw-label">Waar wonen Thom & Louelle?</p>
-    <input type="password" id="pw-input" placeholder="Jouw antwoord..." autocomplete="off" />
-    <button class="pw-btn" onclick="checkPassword()">Verder</button>
-    <p class="pw-error" id="pw-error"></p>
+    <p style="font-family:'Jost',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:#8a6080; margin-bottom:0.75rem;">Waar wonen Thom & Louelle?</p>
+    <input type="password" id="pw-input" placeholder="••••••••" autocomplete="off" style="background:rgba(139,26,74,0.08); border:1px solid rgba(201,168,76,0.35); color:var(--wine-deeper); font-family:'Jost',sans-serif; font-size:15px; font-weight:300; letter-spacing:0.3em; text-align:center; padding:0.7rem 1.25rem; width:min(260px,70vw); outline:none; border-radius:0; display:block; margin:0 auto 0.65rem;"/>
+    <button onclick="checkPassword()" style="font-family:'Jost',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--mauve-light); background:var(--wine); border:none; padding:0.75rem 2rem; cursor:pointer; display:block; width:min(260px,70vw);">Verder</button>
+    <p id="pw-error" style="font-family:'Jost',sans-serif; font-size:10.5px; color:#8B1A4A; margin-top:0.65rem; letter-spacing:0.1em; min-height:1.2em;"></p>
   </div>
 </div>
 
 <!-- NAV -->
 <nav>
-  <a href="#welkom">Welkom</a>
   <a href="#programma">Programma</a>
   <a href="#locaties">Locaties</a>
+  <a href="#ceremoniemeesters">Psst...</a>
   <a href="#rsvp">RSVP</a>
   <a href="#overnachting">Overnachting</a>
   <a href="#reizen">Reizen</a>
-  <a href="#faq">FAQ</a>
 </nav>
 
 <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
-<section class="hero" id="welkom">
+<section class="hero" id="welkom" style="background: var(--mauve-light);">
 
-  <!-- The signature wavy mauve blob from the card -->
   <div class="hero-blob">
-    <svg viewBox="0 0 560 700" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Gold accent lines (foil effect) -->
-      <path d="M110,80 Q140,60 160,90 Q180,115 160,140 Q140,165 160,190 Q180,215 160,240 Q140,265 160,290 Q180,315 160,340 Q140,365 160,390 Q180,415 160,440 Q140,465 160,490 Q180,515 160,540 Q140,565 160,590 Q175,610 165,630"
-        stroke="#C9A84C" stroke-width="1" opacity="0.35" fill="none"/>
-      <path d="M450,80 Q420,60 400,90 Q380,115 400,140 Q420,165 400,190 Q380,215 400,240 Q420,265 400,290 Q380,315 400,340 Q420,365 400,390 Q380,415 400,440 Q420,465 400,490 Q380,515 400,540 Q420,565 400,590 Q385,610 395,630"
-        stroke="#C9A84C" stroke-width="1" opacity="0.35" fill="none"/>
-      <!-- Wavy blob — deeper, more pronounced waves like the card -->
-      <path d="
-        M175,45
-        C215,15 345,15 385,45
-        C415,68 455,95 445,130
-        C435,162 465,185 455,220
-        C445,255 468,278 455,312
-        C442,346 465,370 452,405
-        C439,440 465,462 452,498
-        C439,533 465,556 450,590
-        C435,622 400,660 355,672
-        C315,682 245,682 205,672
-        C160,660 125,622 110,590
-        C95,556 121,533 108,498
-        C95,462 121,440 108,405
-        C95,370 118,346 105,312
-        C92,278 115,255 105,220
-        C95,185 118,162 105,130
-        C92,95 135,68 175,45
-        Z"
-        fill="#C9A8C0"/>
+    <svg id="blobsvg" viewBox="0 0 340 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Gold foil accent lines -->
+      <path d="M38,20 C18,80 18,140 38,200 C18,260 18,320 38,380 C18,440 18,500 38,540"
+        stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
+      <path d="M302,20 C322,80 322,140 302,200 C322,260 322,320 302,380 C322,440 322,500 302,540"
+        stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
+      <path id="blobpath" fill="#8B1A4A"/>
     </svg>
   </div>
 
   <div class="hero-inner">
-    <span class="hero-eyebrow">Wij gaan trouwen</span>
-
     <div class="hero-names">
       <span class="hero-name">Thom</span>
       <span class="hero-amp">&</span>
@@ -974,7 +1005,7 @@ footer {
     </div>
 
     <span class="hero-date">19 juni 2026</span>
-    <span class="hero-location">Oosterbeek</span>
+    <span class="hero-location">in Oosterbeek</span>
   </div>
 
   <div class="scroll-cue">
@@ -984,10 +1015,12 @@ footer {
 </section>
 
 <!-- ═══════════════ TROUWTEKST ═══════════════ -->
-<section style="background: var(--wine-deeper); padding: 5rem 2rem; text-align: center;">
-  <p class="reveal" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1.5rem, 4vw, 2.6rem); font-weight: 300; color: var(--mauve-light); line-height: 1.6; max-width: 680px; margin: 0 auto; letter-spacing: 0.02em;">
-    "Licht dat altijd schijnt, liefde zonder eind"
-  </p>
+<section style="background: var(--mauve-light); padding: 2.5rem 2rem; text-align: center;">
+  <div style="display:flex; align-items:center; justify-content:center; gap:1rem; max-width:600px; margin: 0 auto;">
+    <div style="flex:1; height:1px; background:var(--gold); opacity:0.4;"></div>
+    <p style="font-family:'Sacramento',cursive; font-size:clamp(1.4rem, 3.5vw, 2rem); color:var(--wine); line-height:1.5; white-space:nowrap;">"Licht dat altijd schijnt, liefde zonder eind"</p>
+    <div style="flex:1; height:1px; background:var(--gold); opacity:0.4;"></div>
+  </div>
 </section>
 
 <!-- ═══════════════ COUNTDOWN ═══════════════ -->
@@ -999,21 +1032,6 @@ footer {
       <div class="countdown-block">
         <div class="countdown-num" id="cd-days">--</div>
         <div class="countdown-lbl">Dagen</div>
-      </div>
-      <div class="countdown-sep">·</div>
-      <div class="countdown-block">
-        <div class="countdown-num" id="cd-hours">--</div>
-        <div class="countdown-lbl">Uren</div>
-      </div>
-      <div class="countdown-sep">·</div>
-      <div class="countdown-block">
-        <div class="countdown-num" id="cd-mins">--</div>
-        <div class="countdown-lbl">Minuten</div>
-      </div>
-      <div class="countdown-sep">·</div>
-      <div class="countdown-block">
-        <div class="countdown-num" id="cd-secs">--</div>
-        <div class="countdown-lbl">Seconden</div>
       </div>
     </div>
     <p style="margin-top:2rem; font-family:'Sacramento',cursive; font-size:1.6rem; color:var(--gold); opacity:0.7;" class="reveal">tot we eindelijk ja zeggen</p>
@@ -1035,7 +1053,7 @@ footer {
     <div class="timeline reveal">
 
       <!-- Dag programma -->
-      <div class="tl-item">
+      <div class="tl-item" data-role="dag">
         <div class="tl-time">13:30</div>
         <div class="tl-body">
           <div class="tl-event">Ontvangst daggasten</div>
@@ -1043,7 +1061,7 @@ footer {
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-role="dag">
         <div class="tl-time">14:00</div>
         <div class="tl-body">
           <div class="tl-event">Ceremonie</div>
@@ -1051,7 +1069,7 @@ footer {
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-role="dag">
         <div class="tl-time">15:00</div>
         <div class="tl-body">
           <div class="tl-event">Proost</div>
@@ -1059,7 +1077,7 @@ footer {
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-role="dag">
         <div class="tl-time">16:30</div>
         <div class="tl-body">
           <div class="tl-event">Diner</div>
@@ -1070,7 +1088,7 @@ footer {
       <!-- Break -->
       <div class="tl-break">Avondprogramma</div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-role="avond">
         <div class="tl-time">18:30</div>
         <div class="tl-body">
           <div class="tl-event">Ontvangst avondgasten</div>
@@ -1149,7 +1167,39 @@ footer {
   </div>
 </section>
 
-<!-- Wave: wine → mauve (RSVP) -->
+<!-- Wave: wine → mauve (ceremoniemeesters) -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#8B1A4A"/>
+  <path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>
+</svg>
+
+<!-- ═══════════════ CEREMONIEMEESTERS ═══════════════ -->
+<section style="background: var(--mauve-light); padding: 4rem 1.5rem;" id="ceremoniemeesters">
+  <div class="sec-inner">
+    <div class="reveal" style="max-width: 560px; margin: 0 auto; text-align: center;">
+      <span class="sec-label lbl-gold-dk">Alleen voor jullie gasten</span>
+      <h2 class="sec-title title-wine" style="margin-bottom: 1rem;">Een bericht van onze ceremoniemeesters</h2>
+      <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1rem; color:var(--wine-dark); margin-bottom:2rem; opacity:0.7;">
+        Thom & Louelle hebben dit nog niet gelezen — houd het geheim!
+      </p>
+      <div class="secret-box" id="secret-box">
+        <button class="secret-btn" onclick="toggleSecret()" id="secret-btn">
+          <svg class="secret-lock" id="secret-lock" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            <circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+          </svg>
+          <span id="secret-btn-text">Klik om te openen</span>
+        </button>
+        <div class="secret-content" id="secret-content">
+          <p>[Bericht van de ceremoniemeesters — nog in te vullen]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: mauve → wine (RSVP) -->
 <svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#8B1A4A"/>
   <path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>
@@ -1197,7 +1247,19 @@ footer {
             Utrechtseweg 261<br>
             6862 AK Oosterbeek
           </div>
-          <span class="hotel-dist">Dichtbij beide locaties</span>
+          <a class="hotel-dist" href="https://www.bilderberg.nl/nl/oosterbeek/hotel-de-bilderberg/" target="_blank" style="color:var(--gold); text-decoration:none; border-bottom: 1px solid rgba(201,168,76,0.3);">www.bilderberg.nl →</a>
+        </div>
+      </div>
+
+      <div class="hotel-item">
+        <div class="hotel-num">2</div>
+        <div>
+          <div class="hotel-name">Fletcher Hotel-Restaurant Doorwerth-Arnhem</div>
+          <div class="hotel-info">
+            Kabeljauwallee 35<br>
+            6865 ND Doorwerth
+          </div>
+          <a class="hotel-dist" href="https://www.hoteldoorwerth.nl" target="_blank" style="color:var(--gold); text-decoration:none; border-bottom: 1px solid rgba(201,168,76,0.3);">www.hoteldoorwerth.nl →</a>
         </div>
       </div>
 
@@ -1266,8 +1328,7 @@ footer {
 
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
 
-        <div class="travel-card" style="text-align:left;">
-          <div style="font-family:'Jost',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; opacity:0.85;">Daggasten · Tuin de Lage Oorsprong</div>
+        <div class="travel-card" style="text-align:left;" data-role="dag">
           <div class="travel-title" style="text-align:left; margin-bottom:0.6rem;">Parkeren bij Tuin de Lage Oorsprong</div>
           <div class="travel-text" style="text-align:left;">
             Bij de tuin zijn <strong style="color:var(--cream);">19 parkeerplaatsen</strong> beschikbaar. Extra parkeermogelijkheden in de buurt:<br><br>
@@ -1278,8 +1339,7 @@ footer {
           </div>
         </div>
 
-        <div class="travel-card" style="text-align:left;">
-          <div style="font-family:'Jost',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; opacity:0.85;">Avondgasten · Klein Hartenstein</div>
+        <div class="travel-card" style="text-align:left;" data-role="avond">
           <div class="travel-title" style="text-align:left; margin-bottom:0.6rem;">Parkeren bij Klein Hartenstein</div>
           <div class="travel-text" style="text-align:left;">
             Bij Klein Hartenstein is <strong style="color:var(--cream);">voldoende parkeergelegenheid</strong> aanwezig.<br><br>
@@ -1294,95 +1354,6 @@ footer {
   </div>
 </section>
 
-<!-- Wave: wine → wine-dark (FAQ) -->
-<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#8B1A4A"/>
-  <path d="M0,0 L0,30 Q250,65 520,32 Q760,4 1020,44 Q1200,68 1440,24 L1440,0 Z" fill="#681338"/>
-</svg>
-
-<!-- ═══════════════════════════════ FAQ ═══════════════════════════════ -->
-<section class="sec sec-dark" id="faq">
-  <div class="sec-inner">
-    <span class="sec-label lbl-gold reveal">Vragen & antwoorden</span>
-    <h2 class="sec-title title-cream reveal">Veel gestelde vragen</h2>
-    <div class="gold-rule reveal"><span></span></div>
-
-    <div class="faq-list reveal">
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Mag ik foto's maken tijdens de ceremonie?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">
-          Wij vragen jullie tijdens de ceremonie de telefoon op te bergen en te genieten van het moment. Onze fotograaf legt alles voor jullie vast. Daarna zijn foto's natuurlijk van harte welkom!
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Zijn kinderen welkom?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">
-          Kinderen zijn van harte welkom!
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Wat is de dresscode?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">
-          Er is geen dresscode — kom zoals jij je het prettigst voelt!
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Kan ik dieetwensen opgeven?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">
-          Ja, dat kan via het aanmeldformulier. Heb je specifieke allergieën of dieetwensen? Geef ze dan bij de aanmelding op.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Is er een cadeaulijst?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">
-          Wij stellen geen prijs op fysieke cadeaus. Wil je toch iets geven? Dan ontvangen wij graag een envelopje.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Wat als ik te laat kom?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">
-          Wij vragen jullie op tijd aanwezig te zijn zodat de ceremonie stipt kan beginnen. Mocht je toch te laat zijn, neem dan contact op met de ceremoniemeesters.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Hoe kom ik van Tuin de Lage Oorsprong naar Klein Hartenstein?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">
-          De twee locaties liggen circa 1,4 km van elkaar — ongeveer 18 minuten lopen. Avondgasten adviseren wij te parkeren bij Klein Hartenstein en te lopen naar de kerkdienst in Tuin de Lage Oorsprong. Na de dienst loop je terug voor het feest.
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
 <footer>
   <div class="footer-names">Thom & Louelle</div>
@@ -1390,17 +1361,53 @@ footer {
 </footer>
 
 <script>
+// ── BLOB GENEREREN ──
+(function() {
+  const W = 340, H = 560, margin = 40, amplitude = 16, waves = 4, steps = 400;
+  function makePath() {
+    const pts = [];
+    pts.push(`M${margin},0 L${W - margin},0`);
+    let r = [];
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const x = (W - margin) + amplitude * Math.sin(t * waves * 2 * Math.PI);
+      r.push(`${x.toFixed(2)},${(t * H).toFixed(2)}`);
+    }
+    pts.push('L' + r.join(' L'));
+    pts.push(`L${margin},${H}`);
+    let l = [];
+    for (let i = steps; i >= 0; i--) {
+      const t = i / steps;
+      const x = margin - amplitude * Math.sin(t * waves * 2 * Math.PI);
+      l.push(`${x.toFixed(2)},${(t * H).toFixed(2)}`);
+    }
+    pts.push('L' + l.join(' L'));
+    pts.push('Z');
+    return pts.join(' ');
+  }
+  const d = makePath();
+  const b1 = document.getElementById('blobpath');
+  if (b1) b1.setAttribute('d', d);
+  const b2 = document.getElementById('pwblobpath');
+  if (b2) b2.setAttribute('d', d);
+})();
+
 // ── WACHTWOORD ──
-const CORRECT = 'Ede';
+const PASSWORDS = { 'daggast': 'dag', 'avondgast': 'avond' };
 
 function checkPassword() {
-  const val = document.getElementById('pw-input').value;
-  if (val === CORRECT) {
+  const val = document.getElementById('pw-input').value.trim().toLowerCase();
+  let role = null;
+  if (val === 'daggast') role = 'dag';
+  else if (val === 'avondgast') role = 'avond';
+
+  if (role) {
     const screen = document.getElementById('password-screen');
     screen.style.transition = 'opacity 0.6s ease';
     screen.style.opacity = '0';
     setTimeout(() => { screen.style.display = 'none'; }, 600);
-    sessionStorage.setItem('auth', '1');
+    sessionStorage.setItem('auth', role);
+    applyRole(role);
   } else {
     const err = document.getElementById('pw-error');
     err.textContent = 'Onjuist wachtwoord — probeer het opnieuw.';
@@ -1413,24 +1420,37 @@ function checkPassword() {
   }
 }
 
+function applyRole(role) {
+  // Daggasten zien alles BEHALVE avondgast-specifieke info
+  // Avondgasten zien alles BEHALVE daggast-specifieke info
+  document.querySelectorAll('[data-role]').forEach(el => {
+    if (el.dataset.role !== role) {
+      el.style.display = 'none';
+    }
+  });
+}
+
 document.getElementById('pw-input').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') checkPassword();
 });
 
 // Auto-unlock if already authenticated this session
-if (sessionStorage.getItem('auth') === '1') {
+const savedRole = sessionStorage.getItem('auth');
+if (savedRole === 'dag' || savedRole === 'avond') {
   document.getElementById('password-screen').style.display = 'none';
+  applyRole(savedRole);
 }
 
 // ── COUNTDOWN ──
 function updateCountdown() {
+  const grid = document.getElementById('countdown-grid');
+  if (!grid) return;
   const target = new Date('2026-06-19T13:30:00');
   const now = new Date();
   const diff = target - now;
 
   if (diff <= 0) {
-    document.getElementById('countdown-grid').innerHTML =
-      '<p class="countdown-done">🎉 Het is zover — vandaag trouwen wij!</p>';
+    grid.innerHTML = '<p class="countdown-done">Het is zover — vandaag trouwen wij!</p>';
     return;
   }
 
@@ -1439,10 +1459,14 @@ function updateCountdown() {
   const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   const secs  = Math.floor((diff % (1000 * 60)) / 1000);
 
-  document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
-  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-  document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
-  document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+  const d = document.getElementById('cd-days');
+  const h = document.getElementById('cd-hours');
+  const m = document.getElementById('cd-mins');
+  const s = document.getElementById('cd-secs');
+  if (d) d.textContent = String(days).padStart(2, '0');
+  if (h) h.textContent = String(hours).padStart(2, '0');
+  if (m) m.textContent = String(mins).padStart(2, '0');
+  if (s) s.textContent = String(secs).padStart(2, '0');
 }
 
 updateCountdown();
@@ -1460,6 +1484,17 @@ function toggleFaq(btn) {
     btn.classList.add('open');
     answer.classList.add('open');
   }
+}
+
+// ── GEHEIM VAKJE ──
+function toggleSecret() {
+  const content = document.getElementById('secret-content');
+  const lock = document.getElementById('secret-lock');
+  const btnText = document.getElementById('secret-btn-text');
+  const isOpen = content.classList.contains('open');
+  content.classList.toggle('open');
+  lock.classList.toggle('open');
+  btnText.textContent = isOpen ? 'Klik om te openen' : 'Klik om te sluiten';
 }
 
 // ── SCROLL REVEAL ──
