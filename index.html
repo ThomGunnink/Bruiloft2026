@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thom & Louelle — 19.06.2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500&family=Sacramento&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 <style>
 /* ── PASSWORD SCREEN ── */
 #password-screen {
@@ -43,7 +45,7 @@
   font-family: 'DM Serif Display', serif;
   font-style: italic;
   font-size: clamp(1.8rem, 5vw, 3.2rem);
-  color: #C9A8C0;
+  color: #681338;
   line-height: 0.95;
   margin-bottom: 0.2rem;
 }
@@ -51,14 +53,14 @@
   font-family: 'DM Serif Display', serif;
   font-style: italic;
   font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  color: #C9A84C;
+  color: #4d0e2a;
   display: block;
   line-height: 1.3;
 }
 #password-screen .pw-script {
   font-family: 'Sacramento', cursive;
   font-size: clamp(1rem, 2.5vw, 1.6rem);
-  color: #C9A84C;
+  color: #4d0e2a;
   margin-bottom: 1.8rem;
   display: block;
 }
@@ -565,10 +567,17 @@ nav a:hover { color: var(--gold); }
   width: 100%;
   height: 150px;
   overflow: hidden;
+  position: relative;
 }
 .loc-map iframe {
   width: 100%; height: 100%;
   border: 0; display: block;
+}
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: pointer;
 }
 .loc-info { padding: 1rem 1.25rem 1.15rem; }
 .loc-type {
@@ -751,14 +760,15 @@ nav a:hover { color: var(--gold); }
   position: relative;
 }
 .travel-icon {
-  width: 44px; height: 44px;
+  width: 52px; height: 52px;
   border-radius: 50%;
-  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1rem;
-  font-size: 20px;
+  font-size: 24px;
+  color: var(--gold);
 }
 .travel-title {
   font-family: 'DM Serif Display', serif;
@@ -811,6 +821,57 @@ footer {
   opacity: 0.6;
 }
 
+/* ── FAQ ── */
+.faq-list { max-width: 640px; margin: 0 auto; }
+.faq-item {
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.faq-item:first-child { border-top: 1px solid rgba(201,168,76,0.15); }
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--cream);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-q:hover { color: var(--gold-light); }
+.faq-icon {
+  font-family: 'Jost', sans-serif;
+  font-style: normal;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+.faq-q.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  font-family: 'Jost', sans-serif;
+  font-size: 13.5px;
+  font-weight: 300;
+  color: var(--mauve-light);
+  line-height: 1.75;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0;
+}
+.faq-a.open {
+  max-height: 300px;
+  padding-bottom: 1.25rem;
+}
+
 /* ── REVEAL ON SCROLL ── */
 .reveal {
   opacity: 0;
@@ -841,7 +902,7 @@ footer {
   </div>
   <div class="pw-inner">
     <div class="pw-names">
-      Thom<span class="pw-amp">&</span>Louelle
+      T | L
     </div>
     <span class="pw-script">gaan trouwen</span>
     <p class="pw-label">Waar wonen Thom & Louelle?</p>
@@ -859,6 +920,7 @@ footer {
   <a href="#rsvp">RSVP</a>
   <a href="#overnachting">Overnachting</a>
   <a href="#reizen">Reizen</a>
+  <a href="#faq">FAQ</a>
 </nav>
 
 <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
@@ -872,25 +934,25 @@ footer {
         stroke="#C9A84C" stroke-width="1" opacity="0.35" fill="none"/>
       <path d="M450,80 Q420,60 400,90 Q380,115 400,140 Q420,165 400,190 Q380,215 400,240 Q420,265 400,290 Q380,315 400,340 Q420,365 400,390 Q380,415 400,440 Q420,465 400,490 Q380,515 400,540 Q420,565 400,590 Q385,610 395,630"
         stroke="#C9A84C" stroke-width="1" opacity="0.35" fill="none"/>
-      <!-- Main wavy blob shape matching the card -->
+      <!-- Wavy blob — deeper, more pronounced waves like the card -->
       <path d="
-        M165,50
-        C200,20 360,20 395,50
-        C430,80 450,110 440,140
-        C430,170 450,200 440,230
-        C430,260 450,290 440,320
-        C430,350 450,380 440,410
-        C430,440 450,470 440,500
-        C430,530 450,560 440,590
-        C430,620 400,660 360,670
-        C320,680 240,680 200,670
-        C160,660 130,620 120,590
-        C110,560 130,530 120,500
-        C110,470 130,440 120,410
-        C110,380 130,350 120,320
-        C110,290 130,260 120,230
-        C110,200 130,170 120,140
-        C110,110 130,80 165,50
+        M175,45
+        C215,15 345,15 385,45
+        C415,68 455,95 445,130
+        C435,162 465,185 455,220
+        C445,255 468,278 455,312
+        C442,346 465,370 452,405
+        C439,440 465,462 452,498
+        C439,533 465,556 450,590
+        C435,622 400,660 355,672
+        C315,682 245,682 205,672
+        C160,660 125,622 110,590
+        C95,556 121,533 108,498
+        C95,462 121,440 108,405
+        C95,370 118,346 105,312
+        C92,278 115,255 105,220
+        C95,185 118,162 105,130
+        C92,95 135,68 175,45
         Z"
         fill="#C9A8C0"/>
     </svg>
@@ -921,6 +983,13 @@ footer {
   </div>
 </section>
 
+<!-- ═══════════════ TROUWTEKST ═══════════════ -->
+<section style="background: var(--wine-deeper); padding: 5rem 2rem; text-align: center;">
+  <p class="reveal" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1.5rem, 4vw, 2.6rem); font-weight: 300; color: var(--mauve-light); line-height: 1.6; max-width: 680px; margin: 0 auto; letter-spacing: 0.02em;">
+    "Licht dat altijd schijnt, liefde zonder eind"
+  </p>
+</section>
+
 <!-- ═══════════════ COUNTDOWN ═══════════════ -->
 <section class="countdown-sec" id="countdown">
   <div style="position:relative; z-index:1;">
@@ -947,7 +1016,7 @@ footer {
         <div class="countdown-lbl">Seconden</div>
       </div>
     </div>
-    <p style="margin-top:2rem; font-family:'Sacramento',cursive; font-size:1.6rem; color:var(--gold); opacity:0.7;" class="reveal">tot de mooiste dag van ons leven</p>
+    <p style="margin-top:2rem; font-family:'Sacramento',cursive; font-size:1.6rem; color:var(--gold); opacity:0.7;" class="reveal">tot we eindelijk ja zeggen</p>
   </div>
 </section>
 
@@ -970,7 +1039,7 @@ footer {
         <div class="tl-time">13:30</div>
         <div class="tl-body">
           <div class="tl-event">Ontvangst daggasten</div>
-          <div class="tl-desc">Tuin de Lage Oorsprong, Oosterbeek</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong</div>
         </div>
       </div>
 
@@ -978,15 +1047,15 @@ footer {
         <div class="tl-time">14:00</div>
         <div class="tl-body">
           <div class="tl-event">Ceremonie</div>
-          <div class="tl-desc">Het officiële ja-woord — tijdstip onder voorbehoud</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong</div>
         </div>
       </div>
 
       <div class="tl-item">
         <div class="tl-time">15:00</div>
         <div class="tl-body">
-          <div class="tl-event">Proost!</div>
-          <div class="tl-desc">Wij klinken met jullie op ons nieuwe begin</div>
+          <div class="tl-event">Proost</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong</div>
         </div>
       </div>
 
@@ -1005,7 +1074,7 @@ footer {
         <div class="tl-time">18:30</div>
         <div class="tl-body">
           <div class="tl-event">Ontvangst avondgasten</div>
-          <div class="tl-desc">Tuin de Lage Oorsprong, Oosterbeek</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong</div>
         </div>
       </div>
 
@@ -1021,7 +1090,7 @@ footer {
         <div class="tl-time">20:15</div>
         <div class="tl-body">
           <div class="tl-event">Feest</div>
-          <div class="tl-desc">Klein Hartenstein, Oosterbeek — het feest kan beginnen!</div>
+          <div class="tl-desc">Klein Hartenstein</div>
         </div>
       </div>
 
@@ -1051,26 +1120,28 @@ footer {
       <div class="loc-card">
         <div class="loc-map">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2451.2!2d5.8397!3d51.9823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a4b5e0f6e6a7%3A0x1!2sTuin+de+Lage+Oorsprong%2C+Utrechtseweg+232%2C+Oosterbeek!5e0!3m2!1snl!2snl!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <a class="map-overlay" href="https://maps.google.com/?q=Tuin+de+Lage+Oorsprong,+Utrechtseweg+232,+Oosterbeek" target="_blank" aria-label="Open in Google Maps"></a>
         </div>
         <div class="loc-info">
           <div class="loc-type">Ceremonie & Diner</div>
           <div class="loc-name">Tuin de Lage Oorsprong</div>
           <div class="loc-what">Ontvangst · Ceremonie · Proost · Diner · Kerkdienst</div>
-          <div class="loc-addr">Utrechtseweg 232, Oosterbeek</div>
-          <a class="loc-link" href="https://maps.google.com/?q=Tuin+de+Lage+Oorsprong,+Utrechtseweg+232,+Oosterbeek" target="_blank">Route plannen →</a>
+          <div class="loc-addr">Van Borsselenweg 36, Oosterbeek</div>
+          <a class="loc-link" href="https://maps.google.com/?q=Van+Borsselenweg+36,+Oosterbeek" target="_blank">Route plannen →</a>
         </div>
       </div>
 
       <div class="loc-card">
         <div class="loc-map">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2451.2!2d5.8447!3d51.9843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a4b5e0f6e6a8%3A0x2!2sKlein+Hartenstein%2C+Oosterbeek!5e0!3m2!1snl!2snl!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <a class="map-overlay" href="https://maps.google.com/?q=Klein+Hartenstein,+Oosterbeek" target="_blank" aria-label="Open in Google Maps"></a>
         </div>
         <div class="loc-info">
           <div class="loc-type">Feest</div>
           <div class="loc-name">Klein Hartenstein</div>
           <div class="loc-what">Feest vanaf 20:15</div>
-          <div class="loc-addr">Utrechtseweg 321, Oosterbeek</div>
-          <a class="loc-link" href="https://maps.google.com/?q=Klein+Hartenstein,+Oosterbeek" target="_blank">Route plannen →</a>
+          <div class="loc-addr">Utrechtseweg 226, Oosterbeek</div>
+          <a class="loc-link" href="https://maps.google.com/?q=Talsmalaan+1,+Oosterbeek" target="_blank">Route plannen →</a>
         </div>
       </div>
 
@@ -1096,7 +1167,7 @@ footer {
       Kom jij ook? Wij horen het heel graag!<br>
       Meld je aan via onderstaande knop.
     </p>
-    <span class="rsvp-deadline reveal">Aanmelden vóór [datum] — tijdstip volgt</span>
+    <span class="rsvp-deadline reveal">Aanmelden vóór [datum]</span>
     <div class="reveal">
       <a class="rsvp-btn" href="#" target="_blank">Aanmelden</a>
     </div>
@@ -1155,37 +1226,160 @@ footer {
     <div class="travel-grid reveal">
 
       <div class="travel-card">
-        <div class="travel-icon">🚂</div>
+        <div class="travel-icon"><i class="ph ph-train"></i></div>
         <div class="travel-title">Met de trein</div>
         <div class="travel-text">
-          Reizen naar station Arnhem Centraal,<br>
-          daarna verder met bus of taxi naar Oosterbeek.
+          Reis naar station Arnhem Centraal, daarna verder met bus of taxi naar Oosterbeek.
         </div>
       </div>
 
       <div class="travel-card">
-        <div class="travel-icon">🚗</div>
-        <div class="travel-title">Met de auto</div>
+        <div class="travel-icon"><i class="ph ph-bicycle"></i></div>
+        <div class="travel-title">OV-fiets</div>
         <div class="travel-text">
-          Meer informatie over parkeren<br>
-          volgt binnenkort.
+          Huur een OV-fiets op station Arnhem Centraal. Oosterbeek is circa 8 km fietsen langs de Rijn.
         </div>
       </div>
 
       <div class="travel-card">
-        <div class="travel-icon">🚕</div>
+        <div class="travel-icon"><i class="ph ph-car"></i></div>
+        <div class="travel-title">Carpoolen</div>
+        <div class="travel-text">
+          Wij adviseren om zoveel mogelijk samen te rijden. De locaties liggen in een rustige natuuromgeving met beperkte parkeerruimte.
+        </div>
+      </div>
+
+      <div class="travel-card">
+        <div class="travel-icon"><i class="ph ph-taxi"></i></div>
         <div class="travel-title">Taxi</div>
         <div class="travel-text">
-          Een taxi vanaf Arnhem Centraal<br>
-          naar Oosterbeek is circa 10–15 minuten.
+          Een taxi vanaf Arnhem Centraal naar Oosterbeek is circa 10–15 minuten.
         </div>
       </div>
 
     </div>
 
-    <p style="text-align:center; margin-top:2.5rem; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.05rem; color:var(--mauve-mid); line-height:1.8;" class="reveal">
-      Meer reisinformatie en parkeertips volgen binnenkort op deze pagina.
-    </p>
+    <!-- Parkeren -->
+    <div style="margin-top: 3.5rem;" class="reveal">
+      <div class="gold-rule"><span></span></div>
+      <h3 style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.6rem; color:var(--cream); text-align:center; margin-bottom:2.5rem;">Parkeren</h3>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
+
+        <div class="travel-card" style="text-align:left;">
+          <div style="font-family:'Jost',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; opacity:0.85;">Daggasten · Tuin de Lage Oorsprong</div>
+          <div class="travel-title" style="text-align:left; margin-bottom:0.6rem;">Parkeren bij Tuin de Lage Oorsprong</div>
+          <div class="travel-text" style="text-align:left;">
+            Bij de tuin zijn <strong style="color:var(--cream);">19 parkeerplaatsen</strong> beschikbaar. Extra parkeermogelijkheden in de buurt:<br><br>
+            · Parkeerplaats Landgoed De Oorsprong, Van Borsselenweg 31 (gratis)<br>
+            · Parkeerhavens langs de Van Borsselenweg<br>
+            · Kleine parkeerplaats in het bos (noord van de tuin)<br><br>
+            Vanaf deze plekken loopt een gemarkeerde route door het beekdal naar de tuin.
+          </div>
+        </div>
+
+        <div class="travel-card" style="text-align:left;">
+          <div style="font-family:'Jost',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; opacity:0.85;">Avondgasten · Klein Hartenstein</div>
+          <div class="travel-title" style="text-align:left; margin-bottom:0.6rem;">Parkeren bij Klein Hartenstein</div>
+          <div class="travel-text" style="text-align:left;">
+            Bij Klein Hartenstein is <strong style="color:var(--cream);">voldoende parkeergelegenheid</strong> aanwezig.<br><br>
+            Kom je eerst naar de kerkdienst in Tuin de Lage Oorsprong? Parkeer dan alvast bij Klein Hartenstein en loop naar TLO — dat is circa 1,4 km (±18 minuten).<br><br>
+            · Navigatieadres: <strong style="color:var(--cream);">Talsmalaan 1, Oosterbeek</strong><br>
+            · Tip: doe comfortabele schoenen aan!
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: wine → wine-dark (FAQ) -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#8B1A4A"/>
+  <path d="M0,0 L0,30 Q250,65 520,32 Q760,4 1020,44 Q1200,68 1440,24 L1440,0 Z" fill="#681338"/>
+</svg>
+
+<!-- ═══════════════════════════════ FAQ ═══════════════════════════════ -->
+<section class="sec sec-dark" id="faq">
+  <div class="sec-inner">
+    <span class="sec-label lbl-gold reveal">Vragen & antwoorden</span>
+    <h2 class="sec-title title-cream reveal">Veel gestelde vragen</h2>
+    <div class="gold-rule reveal"><span></span></div>
+
+    <div class="faq-list reveal">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Mag ik foto's maken tijdens de ceremonie?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Wij vragen jullie tijdens de ceremonie de telefoon op te bergen en te genieten van het moment. Onze fotograaf legt alles voor jullie vast. Daarna zijn foto's natuurlijk van harte welkom!
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Zijn kinderen welkom?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Kinderen zijn van harte welkom!
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Wat is de dresscode?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Er is geen dresscode — kom zoals jij je het prettigst voelt!
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Kan ik dieetwensen opgeven?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Ja, dat kan via het aanmeldformulier. Heb je specifieke allergieën of dieetwensen? Geef ze dan bij de aanmelding op.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is er een cadeaulijst?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Wij stellen geen prijs op fysieke cadeaus. Wil je toch iets geven? Dan ontvangen wij graag een envelopje.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Wat als ik te laat kom?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          Wij vragen jullie op tijd aanwezig te zijn zodat de ceremonie stipt kan beginnen. Mocht je toch te laat zijn, neem dan contact op met de ceremoniemeesters.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Hoe kom ik van Tuin de Lage Oorsprong naar Klein Hartenstein?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          De twee locaties liggen circa 1,4 km van elkaar — ongeveer 18 minuten lopen. Avondgasten adviseren wij te parkeren bij Klein Hartenstein en te lopen naar de kerkdienst in Tuin de Lage Oorsprong. Na de dienst loop je terug voor het feest.
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1253,6 +1447,20 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+// ── FAQ ──
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    btn.classList.add('open');
+    answer.classList.add('open');
+  }
+}
 
 // ── SCROLL REVEAL ──
 const observer = new IntersectionObserver((entries) => {
