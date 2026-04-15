@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thom & Louelle — 19.06.2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+/* ── PASSWORD SCREEN ── */
+#password-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--wine-deeper, #4d0e2a);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+#password-screen .pw-blob {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0.55;
+}
+#password-screen .pw-blob svg { width: min(480px, 80vw); height: auto; }
+#password-screen .pw-inner { position: relative; z-index: 1; }
+#password-screen .pw-names {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  color: #C9A8C0;
+  line-height: 0.95;
+  margin-bottom: 0.3rem;
+}
+#password-screen .pw-amp {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #C9A84C;
+  display: block;
+  line-height: 1.3;
+}
+#password-screen .pw-script {
+  font-family: 'Sacramento', cursive;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  color: #C9A84C;
+  margin-bottom: 2.5rem;
+  display: block;
+}
+#password-screen .pw-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #b48daa;
+  margin-bottom: 1rem;
+}
+#password-screen input[type="password"] {
+  background: rgba(201,168,192,0.1);
+  border: 1px solid rgba(201,168,76,0.35);
+  color: #fdf8f2;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-align: center;
+  padding: 0.85rem 1.5rem;
+  width: min(280px, 80vw);
+  outline: none;
+  border-radius: 0;
+  transition: border-color 0.2s;
+  display: block;
+  margin: 0 auto 0.75rem;
+}
+#password-screen input[type="password"]:focus {
+  border-color: rgba(201,168,76,0.7);
+}
+#password-screen input[type="password"]::placeholder { color: rgba(201,168,192,0.4); }
+#password-screen .pw-btn {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #4d0e2a;
+  background: #C9A84C;
+  border: none;
+  padding: 0.85rem 2.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: block;
+  margin: 0 auto;
+}
+#password-screen .pw-btn:hover { background: #dfc070; }
+#password-screen .pw-error {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: #e2aab0;
+  margin-top: 0.75rem;
+  letter-spacing: 0.1em;
+  min-height: 1.2em;
+}
+
+/* ── COUNTDOWN ── */
+.countdown-sec {
+  background: var(--wine-dark);
+  padding: 4.5rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.countdown-sec::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 40px,
+    rgba(201,168,76,0.02) 40px,
+    rgba(201,168,76,0.02) 41px
+  );
+  pointer-events: none;
+}
+.countdown-grid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.countdown-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+.countdown-num {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  color: var(--cream);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.countdown-lbl {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 0.4rem;
+  opacity: 0.8;
+}
+.countdown-sep {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--gold);
+  opacity: 0.4;
+  line-height: 1;
+  padding-top: 0.1rem;
+  align-self: flex-start;
+}
+.countdown-done {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  color: var(--gold-light);
+}
+
+:root {
+  --wine:        #8B1A4A;
+  --wine-dark:   #681338;
+  --wine-deeper: #4d0e2a;
+  --mauve:       #C9A8C0;
+  --mauve-light: #e2d0de;
+  --mauve-mid:   #b48daa;
+  --mauve-dark:  #8a6080;
+  --gold:        #C9A84C;
+  --gold-light:  #dfc070;
+  --gold-pale:   #f0dfa0;
+  --gold-dark:   #8a6e1e;
+  --cream:       #fdf8f2;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--wine);
+  font-family: 'Jost', sans-serif;
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  background: rgba(104, 19, 56, 0.93);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,168,76,0.25);
+}
+nav a {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--mauve-light);
+  text-decoration: none;
+  transition: color 0.25s;
+  white-space: nowrap;
+}
+nav a:hover { color: var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--wine);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 54px 1.5rem 2rem;
+}
+
+/* Wavy mauve blob — the signature shape from the card */
+.hero-blob {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-blob svg {
+  width: min(580px, 88vw);
+  height: auto;
+  opacity: 0;
+  animation: blobFade 1.2s ease 0.2s forwards;
+}
+@keyframes blobFade {
+  to { opacity: 1; }
+}
+
+/* Content sits on top of blob */
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 3.5rem 2rem;
+  width: min(520px, 86vw);
+}
+
+.hero-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 1.6rem;
+  opacity: 0;
+  animation: riseIn 0.9s ease 0.7s forwards;
+}
+
+.hero-names {
+  opacity: 0;
+  animation: riseIn 0.9s ease 0.9s forwards;
+}
+.hero-name {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(3.5rem, 11vw, 7rem);
+  color: var(--wine);
+  line-height: 0.9;
+  display: block;
+  letter-spacing: -0.01em;
+}
+.hero-amp {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  color: var(--gold);
+  display: block;
+  line-height: 1.3;
+}
+
+.hero-script {
+  font-family: 'Sacramento', cursive;
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  color: var(--gold);
+  margin-top: 1.2rem;
+  display: block;
+  opacity: 0;
+  animation: riseIn 0.9s ease 1.1s forwards;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 1.8rem 0 1.4rem;
+  opacity: 0;
+  animation: riseIn 0.9s ease 1.2s forwards;
+}
+.hero-divider::before, .hero-divider::after {
+  content: '';
+  width: 44px; height: 1px;
+  background: var(--gold-dark);
+  opacity: 0.6;
+}
+.hero-gem {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+.hero-date {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+  color: var(--wine);
+  letter-spacing: 0.04em;
+  display: block;
+  opacity: 0;
+  animation: riseIn 0.9s ease 1.3s forwards;
+}
+.hero-location {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--wine-dark);
+  margin-top: 0.5rem;
+  display: block;
+  opacity: 0;
+  animation: riseIn 0.9s ease 1.45s forwards;
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* scroll cue */
+.scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: riseIn 1s ease 2s forwards;
+}
+.scroll-cue span {
+  font-size: 8.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mauve-mid);
+}
+.scroll-bar {
+  width: 1px; height: 32px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ── WAVE SVG TRANSITIONS ── */
+.wave-sep { display: block; overflow: hidden; line-height: 0; }
+
+/* ── SHARED SECTION STYLES ── */
+.sec {
+  position: relative;
+  padding: 5.5rem 1.5rem;
+}
+.sec-mauve { background: var(--mauve-light); }
+.sec-wine  { background: var(--wine); }
+.sec-dark  { background: var(--wine-dark); }
+
+.sec-inner { max-width: 860px; margin: 0 auto; }
+
+.sec-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+.lbl-gold     { color: var(--gold); }
+.lbl-gold-dk  { color: var(--gold-dark); }
+
+.sec-title {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  text-align: center;
+  line-height: 1.15;
+  margin-bottom: 3rem;
+}
+.title-wine  { color: var(--wine); }
+.title-cream { color: var(--cream); }
+
+.gold-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: 3rem;
+}
+.gold-rule::before, .gold-rule::after {
+  content: ''; width: 48px; height: 1px;
+  background: var(--gold); opacity: 0.45;
+}
+.gold-rule span {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  display: inline-block;
+}
+
+/* ── PROGRAMMA ── */
+.timeline {
+  max-width: 580px;
+  margin: 0 auto;
+  position: relative;
+  padding-left: 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 86px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent,
+    var(--gold) 12%,
+    var(--mauve-mid) 85%,
+    transparent);
+  opacity: 0.5;
+}
+.tl-item {
+  display: grid;
+  grid-template-columns: 78px 1fr;
+  gap: 0 1.75rem;
+  margin-bottom: 2.2rem;
+  position: relative;
+}
+.tl-item::after {
+  content: '';
+  position: absolute;
+  left: 82px; top: 6px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--mauve-light);
+  box-shadow: 0 0 0 1px var(--gold-dark);
+}
+.tl-time {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--gold-dark);
+  text-align: right;
+  padding-top: 3px;
+  line-height: 1.3;
+}
+.tl-body { padding-left: 0.2rem; }
+.tl-event {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--wine);
+  line-height: 1.15;
+  margin-bottom: 0.2rem;
+}
+.tl-desc {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--mauve-dark);
+  line-height: 1.65;
+}
+.tl-break {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  opacity: 0.7;
+}
+.tl-break::before, .tl-break::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--gold); opacity: 0.25;
+}
+
+/* ── LOCATIES ── */
+.loc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.loc-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(201,168,76,0.28);
+  padding: 2rem 1.75rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s;
+}
+.loc-card:hover { background: rgba(255,255,255,0.1); }
+.loc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--mauve-mid), var(--gold), var(--mauve-mid));
+}
+.loc-type {
+  font-family: 'Jost', sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.7rem;
+}
+.loc-name {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.65rem;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: 0.8rem;
+}
+.loc-addr {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--mauve-light);
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+.loc-what {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--mauve-mid);
+  letter-spacing: 0.05em;
+  margin-bottom: 1.2rem;
+  font-style: italic;
+}
+.loc-link {
+  font-family: 'Jost', sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.loc-link:hover { color: var(--gold-light); border-color: var(--gold); }
+
+/* ── RSVP ── */
+.rsvp-sec {
+  background: var(--mauve-light);
+  padding: 6.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.rsvp-blob-l {
+  position: absolute;
+  left: -120px; top: -80px;
+  width: 380px; height: 380px;
+  border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%;
+  background: var(--mauve-mid);
+  opacity: 0.22;
+  pointer-events: none;
+}
+.rsvp-blob-r {
+  position: absolute;
+  right: -100px; bottom: -80px;
+  width: 320px; height: 320px;
+  border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
+  background: var(--wine);
+  opacity: 0.12;
+  pointer-events: none;
+}
+.rsvp-inner { position: relative; z-index: 1; }
+.rsvp-prose {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--wine-dark);
+  max-width: 520px;
+  margin: 0 auto 0.75rem;
+  line-height: 1.85;
+}
+.rsvp-deadline {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 2.5rem;
+  display: block;
+}
+.rsvp-btn {
+  display: inline-block;
+  font-family: 'Jost', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: var(--wine);
+  padding: 1.1rem 3.8rem;
+  text-decoration: none;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.rsvp-btn:hover { background: var(--wine-dark); }
+
+/* ── OVERNACHTING ── */
+.hotel-list { max-width: 620px; margin: 0 auto; }
+.hotel-item {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 0 1.25rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  align-items: start;
+}
+.hotel-item:first-child { border-top: 1px solid rgba(201,168,76,0.15); }
+.hotel-num {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 2rem;
+  color: var(--gold);
+  opacity: 0.45;
+  line-height: 1;
+}
+.hotel-name {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
+}
+.hotel-info {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--mauve-light);
+  line-height: 1.7;
+}
+.hotel-dist {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.75;
+}
+.hotel-note {
+  margin-top: 2.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--mauve-mid);
+  text-align: center;
+  line-height: 1.8;
+}
+
+/* ── REIZEN ── */
+.travel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.travel-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  position: relative;
+}
+.travel-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 20px;
+}
+.travel-title {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+.travel-text {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--mauve-light);
+  line-height: 1.75;
+}
+.travel-placeholder {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--mauve-mid);
+  text-align: center;
+  padding: 2rem;
+  border: 1px dashed rgba(201,168,76,0.2);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--wine-deeper);
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.15);
+}
+.footer-names {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--mauve-light);
+  margin-bottom: 0.5rem;
+}
+.footer-date {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+/* ── REVEAL ON SCROLL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  nav { gap: 1rem; }
+  nav a { font-size: 9px; letter-spacing: 0.18em; }
+  .timeline::before { left: 68px; }
+  .tl-item { grid-template-columns: 60px 1fr; gap: 0 1.25rem; }
+  .tl-item::after { left: 64px; }
+  .tl-time { font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ WACHTWOORDSCHERM ═══════════════ -->
+<div id="password-screen">
+  <div class="pw-blob">
+    <svg viewBox="0 0 560 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M165,50 C200,20 360,20 395,50 C430,80 450,110 440,140 C430,170 450,200 440,230 C430,260 450,290 440,320 C430,350 450,380 440,410 C430,440 450,470 440,500 C430,530 450,560 440,590 C430,620 400,660 360,670 C320,680 240,680 200,670 C160,660 130,620 120,590 C110,560 130,530 120,500 C110,470 130,440 120,410 C110,380 130,350 120,320 C110,290 130,260 120,230 C110,200 130,170 120,140 C110,110 130,80 165,50 Z" fill="#C9A8C0"/>
+    </svg>
+  </div>
+  <div class="pw-inner">
+    <div class="pw-names">
+      Thom<span class="pw-amp">&</span>Louelle
+    </div>
+    <span class="pw-script">gaan trouwen</span>
+    <p class="pw-label">Waar wonen Thom & Louelle?</p>
+    <input type="password" id="pw-input" placeholder="Jouw antwoord..." autocomplete="off" />
+    <button class="pw-btn" onclick="checkPassword()">Verder</button>
+    <p class="pw-error" id="pw-error"></p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#welkom">Welkom</a>
+  <a href="#programma">Programma</a>
+  <a href="#locaties">Locaties</a>
+  <a href="#rsvp">RSVP</a>
+  <a href="#overnachting">Overnachting</a>
+  <a href="#reizen">Reizen</a>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="hero" id="welkom">
+
+  <!-- The signature wavy mauve blob from the card -->
+  <div class="hero-blob">
+    <svg viewBox="0 0 560 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Gold accent lines (foil effect) -->
+      <path d="M110,80 Q140,60 160,90 Q180,115 160,140 Q140,165 160,190 Q180,215 160,240 Q140,265 160,290 Q180,315 160,340 Q140,365 160,390 Q180,415 160,440 Q140,465 160,490 Q180,515 160,540 Q140,565 160,590 Q175,610 165,630"
+        stroke="#C9A84C" stroke-width="1" opacity="0.35" fill="none"/>
+      <path d="M450,80 Q420,60 400,90 Q380,115 400,140 Q420,165 400,190 Q380,215 400,240 Q420,265 400,290 Q380,315 400,340 Q420,365 400,390 Q380,415 400,440 Q420,465 400,490 Q380,515 400,540 Q420,565 400,590 Q385,610 395,630"
+        stroke="#C9A84C" stroke-width="1" opacity="0.35" fill="none"/>
+      <!-- Main wavy blob shape matching the card -->
+      <path d="
+        M165,50
+        C200,20 360,20 395,50
+        C430,80 450,110 440,140
+        C430,170 450,200 440,230
+        C430,260 450,290 440,320
+        C430,350 450,380 440,410
+        C430,440 450,470 440,500
+        C430,530 450,560 440,590
+        C430,620 400,660 360,670
+        C320,680 240,680 200,670
+        C160,660 130,620 120,590
+        C110,560 130,530 120,500
+        C110,470 130,440 120,410
+        C110,380 130,350 120,320
+        C110,290 130,260 120,230
+        C110,200 130,170 120,140
+        C110,110 130,80 165,50
+        Z"
+        fill="#C9A8C0"/>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Wij gaan trouwen</span>
+
+    <div class="hero-names">
+      <span class="hero-name">Thom</span>
+      <span class="hero-amp">&</span>
+      <span class="hero-name">Louelle</span>
+    </div>
+
+    <span class="hero-script">gaan trouwen</span>
+
+    <div class="hero-divider">
+      <div class="hero-gem"></div>
+    </div>
+
+    <span class="hero-date">19 juni 2026</span>
+    <span class="hero-location">Oosterbeek</span>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ COUNTDOWN ═══════════════ -->
+<section class="countdown-sec" id="countdown">
+  <div style="position:relative; z-index:1;">
+    <span class="sec-label lbl-gold reveal" style="color:var(--gold);">Nog even geduld</span>
+    <h2 class="sec-title title-cream reveal" style="margin-bottom:1rem;">Nog te gaan</h2>
+    <div class="countdown-grid reveal" id="countdown-grid">
+      <div class="countdown-block">
+        <div class="countdown-num" id="cd-days">--</div>
+        <div class="countdown-lbl">Dagen</div>
+      </div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-block">
+        <div class="countdown-num" id="cd-hours">--</div>
+        <div class="countdown-lbl">Uren</div>
+      </div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-block">
+        <div class="countdown-num" id="cd-mins">--</div>
+        <div class="countdown-lbl">Minuten</div>
+      </div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-block">
+        <div class="countdown-num" id="cd-secs">--</div>
+        <div class="countdown-lbl">Seconden</div>
+      </div>
+    </div>
+    <p style="margin-top:2rem; font-family:'Sacramento',cursive; font-size:1.6rem; color:var(--gold); opacity:0.7;" class="reveal">tot de mooiste dag van ons leven</p>
+  </div>
+</section>
+
+<!-- Wave: wine-dark → mauve -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#681338"/>
+  <path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>
+</svg>
+
+<section class="sec sec-mauve" id="programma">
+  <div class="sec-inner">
+    <span class="sec-label lbl-gold-dk reveal">Vrijdag 19 juni 2026</span>
+    <h2 class="sec-title title-wine reveal">Het Programma</h2>
+    <div class="gold-rule reveal"><span></span></div>
+
+    <div class="timeline reveal">
+
+      <!-- Dag programma -->
+      <div class="tl-item">
+        <div class="tl-time">13:30</div>
+        <div class="tl-body">
+          <div class="tl-event">Ontvangst daggasten</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong, Oosterbeek</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">14:00</div>
+        <div class="tl-body">
+          <div class="tl-event">Ceremonie</div>
+          <div class="tl-desc">Het officiële ja-woord — tijdstip onder voorbehoud</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">15:00</div>
+        <div class="tl-body">
+          <div class="tl-event">Proost!</div>
+          <div class="tl-desc">Wij klinken met jullie op ons nieuwe begin</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">16:30</div>
+        <div class="tl-body">
+          <div class="tl-event">Diner</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong</div>
+        </div>
+      </div>
+
+      <!-- Break -->
+      <div class="tl-break">Avondprogramma</div>
+
+      <div class="tl-item">
+        <div class="tl-time">18:30</div>
+        <div class="tl-body">
+          <div class="tl-event">Ontvangst avondgasten</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong, Oosterbeek</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">19:00</div>
+        <div class="tl-body">
+          <div class="tl-event">Kerkdienst</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">20:15</div>
+        <div class="tl-body">
+          <div class="tl-event">Feest</div>
+          <div class="tl-desc">Klein Hartenstein, Oosterbeek — het feest kan beginnen!</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; margin-top:2.5rem; font-family:'Jost',sans-serif; font-size:11.5px; font-weight:300; color:var(--mauve-dark); font-style:italic; opacity:0.8;" class="reveal">
+      Tijden zijn onder voorbehoud — houd deze pagina in de gaten voor updates.
+    </p>
+  </div>
+</section>
+
+<!-- Wave: mauve → wine -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#e2d0de"/>
+  <path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#8B1A4A"/>
+</svg>
+
+<!-- ═══════════════════════════════ LOCATIES ═══════════════════════════════ -->
+<section class="sec sec-wine" id="locaties">
+  <div class="sec-inner">
+    <span class="sec-label lbl-gold reveal">Waar vinden jullie ons?</span>
+    <h2 class="sec-title title-cream reveal">De Locaties</h2>
+    <div class="gold-rule reveal"><span></span></div>
+
+    <div class="loc-grid reveal">
+
+      <div class="loc-card">
+        <div class="loc-type">Ceremonie & Diner</div>
+        <div class="loc-name">Tuin de Lage Oorsprong</div>
+        <div class="loc-what">Ontvangst · Ceremonie · Proost · Diner · Kerkdienst</div>
+        <div class="loc-addr">
+          Utrechtseweg 232<br>
+          6862 AZ Oosterbeek
+        </div>
+        <a class="loc-link" href="https://maps.google.com/?q=Tuin+de+Lage+Oorsprong,+Utrechtseweg+232,+Oosterbeek" target="_blank">Bekijk op kaart →</a>
+      </div>
+
+      <div class="loc-card">
+        <div class="loc-type">Feest</div>
+        <div class="loc-name">Klein Hartenstein</div>
+        <div class="loc-what">Feest vanaf 20:15</div>
+        <div class="loc-addr">
+          Utrechtseweg 321<br>
+          6862 AZ Oosterbeek
+        </div>
+        <a class="loc-link" href="https://maps.google.com/?q=Klein+Hartenstein,+Oosterbeek" target="_blank">Bekijk op kaart →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Wave: wine → mauve (RSVP) -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#8B1A4A"/>
+  <path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>
+</svg>
+
+<!-- ═══════════════════════════════ RSVP ═══════════════════════════════ -->
+<section class="rsvp-sec" id="rsvp">
+  <div class="rsvp-blob-l"></div>
+  <div class="rsvp-blob-r"></div>
+  <div class="rsvp-inner">
+    <span class="sec-label lbl-gold-dk reveal">Laat het ons weten</span>
+    <h2 class="sec-title title-wine reveal">Aanmelden</h2>
+    <div class="gold-rule reveal"><span></span></div>
+    <p class="rsvp-prose reveal">
+      Kom jij ook? Wij horen het heel graag!<br>
+      Meld je aan via onderstaande knop.
+    </p>
+    <span class="rsvp-deadline reveal">Aanmelden vóór [datum] — tijdstip volgt</span>
+    <div class="reveal">
+      <a class="rsvp-btn" href="#" target="_blank">Aanmelden</a>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: mauve → wine-dark -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#e2d0de"/>
+  <path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#681338"/>
+</svg>
+
+<!-- ═══════════════════════════════ OVERNACHTING ═══════════════════════════════ -->
+<section class="sec sec-dark" id="overnachting">
+  <div class="sec-inner">
+    <span class="sec-label lbl-gold reveal">Voor wie van ver komt</span>
+    <h2 class="sec-title title-cream reveal">Overnachting</h2>
+    <div class="gold-rule reveal"><span></span></div>
+
+    <div class="hotel-list reveal">
+
+      <div class="hotel-item">
+        <div class="hotel-num">1</div>
+        <div>
+          <div class="hotel-name">Hotel Bilderberg Oosterbeek</div>
+          <div class="hotel-info">
+            Utrechtseweg 261<br>
+            6862 AK Oosterbeek
+          </div>
+          <span class="hotel-dist">Dichtbij beide locaties</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="hotel-note reveal">
+      Meer aanbevelingen volgen binnenkort.<br>
+      Reserveer op tijd — Oosterbeek is populair in juni!
+    </p>
+  </div>
+</section>
+
+<!-- Wave: dark → wine -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#681338"/>
+  <path d="M0,0 L0,30 Q250,65 520,32 Q760,4 1020,44 Q1200,68 1440,24 L1440,0 Z" fill="#8B1A4A"/>
+</svg>
+
+<!-- ═══════════════════════════════ REIZEN ═══════════════════════════════ -->
+<section class="sec sec-wine" id="reizen">
+  <div class="sec-inner">
+    <span class="sec-label lbl-gold reveal">Hoe kom je er?</span>
+    <h2 class="sec-title title-cream reveal">Reizen & Parkeren</h2>
+    <div class="gold-rule reveal"><span></span></div>
+
+    <div class="travel-grid reveal">
+
+      <div class="travel-card">
+        <div class="travel-icon">🚂</div>
+        <div class="travel-title">Met de trein</div>
+        <div class="travel-text">
+          Reizen naar station Arnhem Centraal,<br>
+          daarna verder met bus of taxi naar Oosterbeek.
+        </div>
+      </div>
+
+      <div class="travel-card">
+        <div class="travel-icon">🚗</div>
+        <div class="travel-title">Met de auto</div>
+        <div class="travel-text">
+          Meer informatie over parkeren<br>
+          volgt binnenkort.
+        </div>
+      </div>
+
+      <div class="travel-card">
+        <div class="travel-icon">🚕</div>
+        <div class="travel-title">Taxi</div>
+        <div class="travel-text">
+          Een taxi vanaf Arnhem Centraal<br>
+          naar Oosterbeek is circa 10–15 minuten.
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; margin-top:2.5rem; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.05rem; color:var(--mauve-mid); line-height:1.8;" class="reveal">
+      Meer reisinformatie en parkeertips volgen binnenkort op deze pagina.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer>
+  <div class="footer-names">Thom & Louelle</div>
+  <div class="footer-date">19 · 06 · 2026 · Oosterbeek</div>
+</footer>
+
+<script>
+// ── WACHTWOORD ──
+const CORRECT = 'Ede';
+
+function checkPassword() {
+  const val = document.getElementById('pw-input').value;
+  if (val === CORRECT) {
+    const screen = document.getElementById('password-screen');
+    screen.style.transition = 'opacity 0.6s ease';
+    screen.style.opacity = '0';
+    setTimeout(() => { screen.style.display = 'none'; }, 600);
+    sessionStorage.setItem('auth', '1');
+  } else {
+    const err = document.getElementById('pw-error');
+    err.textContent = 'Onjuist wachtwoord — probeer het opnieuw.';
+    const input = document.getElementById('pw-input');
+    input.style.borderColor = 'rgba(220,100,120,0.7)';
+    setTimeout(() => {
+      err.textContent = '';
+      input.style.borderColor = '';
+    }, 2500);
+  }
+}
+
+document.getElementById('pw-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkPassword();
+});
+
+// Auto-unlock if already authenticated this session
+if (sessionStorage.getItem('auth') === '1') {
+  document.getElementById('password-screen').style.display = 'none';
+}
+
+// ── COUNTDOWN ──
+function updateCountdown() {
+  const target = new Date('2026-06-19T13:30:00');
+  const now = new Date();
+  const diff = target - now;
+
+  if (diff <= 0) {
+    document.getElementById('countdown-grid').innerHTML =
+      '<p class="countdown-done">🎉 Het is zover — vandaag trouwen wij!</p>';
+    return;
+  }
+
+  const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+  document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
+  document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
