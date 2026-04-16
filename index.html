@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thom & Louelle — 19.06.2026</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="shortcut icon" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500&family=Sacramento&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 <style>
 /* ── PASSWORD SCREEN ── */
@@ -41,39 +42,6 @@
   flex-direction: column;
   align-items: center;
 }
-#password-screen .pw-names {
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-size: clamp(1.8rem, 5vw, 3.2rem);
-  color: #681338;
-  line-height: 0.95;
-  margin-bottom: 0.2rem;
-}
-#password-screen .pw-amp {
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  color: #4d0e2a;
-  display: block;
-  line-height: 1.3;
-}
-#password-screen .pw-script {
-  font-family: 'Sacramento', cursive;
-  font-size: clamp(1rem, 2.5vw, 1.6rem);
-  color: #4d0e2a;
-  margin-bottom: 1.8rem;
-  display: block;
-}
-#password-screen .pw-label {
-  font-family: 'Jost', sans-serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: #8a6080;
-  margin-bottom: 0.75rem;
-}
-#password-screen input[type="password"] {
   background: rgba(201,168,192,0.1);
   border: 1px solid rgba(201,168,76,0.35);
   color: #fdf8f2;
@@ -94,22 +62,6 @@
   border-color: rgba(201,168,76,0.7);
 }
 #password-screen input[type="password"]::placeholder { color: rgba(201,168,192,0.4); }
-#password-screen .pw-btn {
-  font-family: 'Jost', sans-serif;
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: #4d0e2a;
-  background: #C9A84C;
-  border: none;
-  padding: 0.75rem 2rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  display: block;
-  width: 100%;
-}
-#password-screen .pw-btn:hover { background: #dfc070; }
 #password-screen .pw-error {
   font-family: 'Jost', sans-serif;
   font-size: 10.5px;
@@ -199,7 +151,6 @@
   --mauve-dark:  #8a6080;
   --gold:        #C9A84C;
   --gold-light:  #dfc070;
-  --gold-pale:   #f0dfa0;
   --gold-dark:   #8a6e1e;
   --cream:       #fdf8f2;
 }
@@ -291,18 +242,6 @@ nav a:hover { color: var(--gold); }
   width: min(520px, 86vw);
 }
 
-.hero-eyebrow {
-  font-family: 'Jost', sans-serif;
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  color: var(--gold-dark);
-  margin-bottom: 1.6rem;
-  opacity: 0;
-  animation: riseIn 0.9s ease 0.7s forwards;
-}
-
 .hero-names {
   opacity: 0;
   animation: riseIn 0.9s ease 0.9s forwards;
@@ -387,8 +326,8 @@ nav a:hover { color: var(--gold); }
 .scroll-cue {
   position: absolute;
   bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -396,7 +335,6 @@ nav a:hover { color: var(--gold); }
   gap: 6px;
   opacity: 0;
   animation: riseIn 1s ease 2s forwards;
-  white-space: nowrap;
 }
 .scroll-cue span {
   font-size: 8.5px;
@@ -922,6 +860,54 @@ footer {
   padding: 0 2rem 2rem;
 }
 
+/* ── DEV SWITCHER ── */
+.dev-switcher {
+  position: fixed !important;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 99997;
+}
+.dev-btn {
+  background: none;
+  border: 1px solid rgba(201,168,76,0.2);
+  color: rgba(201,168,76,0.3);
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 2px;
+  display: block;
+  margin-left: auto;
+}
+.dev-btn:hover { color: rgba(201,168,76,0.9); border-color: rgba(201,168,76,0.6); background: rgba(201,168,76,0.08); }
+.dev-menu {
+  background: #4d0e2a;
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 0.4rem;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 140px;
+  margin-bottom: 4px;
+}
+.dev-menu.open { display: flex; }
+.dev-menu button {
+  background: none;
+  border: none;
+  color: #e2d0de;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 6px 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+  border-radius: 0;
+}
+.dev-menu button:hover { background: rgba(201,168,76,0.1); color: #C9A84C; }
+
 /* ── REVEAL ON SCROLL ── */
 .reveal {
   opacity: 0;
@@ -944,9 +930,9 @@ footer {
 <body>
 
 <!-- ═══════════════ WACHTWOORDSCHERM ═══════════════ -->
-<div id="password-screen" style="position:fixed; inset:0; z-index:9999; background:var(--mauve-light); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center;">
+<div id="password-screen" style="position:fixed; inset:0; z-index:9999; background:var(--mauve-light); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; overflow:hidden; touch-action:none;">
   <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;">
-    <svg id="pwblobsvg" viewBox="0 0 340 560" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:min(500px, 85vw); height:auto;">
+    <svg id="pwblobsvg" viewBox="0 0 340 560" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:min(700px, 98vw); height:100vh; object-fit:cover;">
       <path d="M38,20 C18,80 18,140 38,200 C18,260 18,320 38,380 C18,440 18,500 38,540" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
       <path d="M302,20 C322,80 322,140 302,200 C322,260 322,320 302,380 C322,440 322,500 302,540" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
       <path id="pwblobpath" fill="#8B1A4A"/>
@@ -960,19 +946,19 @@ footer {
       <div style="width:5px; height:5px; background:var(--gold); transform:rotate(45deg);"></div>
       <div style="width:44px; height:1px; background:var(--gold); opacity:0.5;"></div>
     </div>
-    <p style="font-family:'Jost',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:#8a6080; margin-bottom:0.75rem;">Waar wonen Thom & Louelle?</p>
-    <input type="password" id="pw-input" placeholder="••••••••" autocomplete="off" style="background:rgba(139,26,74,0.08); border:1px solid rgba(201,168,76,0.35); color:var(--wine-deeper); font-family:'Jost',sans-serif; font-size:15px; font-weight:300; letter-spacing:0.3em; text-align:center; padding:0.7rem 1.25rem; width:min(260px,70vw); outline:none; border-radius:0; display:block; margin:0 auto 0.65rem;"/>
-    <button onclick="checkPassword()" style="font-family:'Jost',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--mauve-light); background:var(--wine); border:none; padding:0.75rem 2rem; cursor:pointer; display:block; width:min(260px,70vw);">Verder</button>
-    <p id="pw-error" style="font-family:'Jost',sans-serif; font-size:10.5px; color:#8B1A4A; margin-top:0.65rem; letter-spacing:0.1em; min-height:1.2em;"></p>
+    <p style="font-family:'Jost',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--mauve-light); margin-bottom:0.75rem; opacity:0.9;">Vul hier het wachtwoord in</p>
+    <input type="password" id="pw-input" placeholder="••••••••" autocomplete="off" style="background:rgba(253,248,242,0.15); border:1px solid rgba(253,248,242,0.5); color:var(--mauve-light); font-family:'Jost',sans-serif; font-size:15px; font-weight:300; letter-spacing:0.3em; text-align:center; padding:0.7rem 1.25rem; width:min(260px,70vw); outline:none; border-radius:0; display:block; margin:0 auto 0.65rem;"/>
+    <button onclick="checkPassword()" style="font-family:'Jost',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--wine-deep); background:var(--gold); border:none; padding:0.75rem 2rem; cursor:pointer; display:block; width:min(260px,70vw);">Verder</button>
+    <p id="pw-error" style="font-family:'Jost',sans-serif; font-size:10.5px; color:var(--mauve-light); margin-top:0.65rem; letter-spacing:0.1em; min-height:1.2em; opacity:0.85;"></p>
   </div>
 </div>
 
 <!-- NAV -->
 <nav>
+  <a href="#rsvp">RSVP</a>
   <a href="#programma">Programma</a>
   <a href="#locaties">Locaties</a>
   <a href="#ceremoniemeesters">Psst...</a>
-  <a href="#rsvp">RSVP</a>
   <a href="#overnachting">Overnachting</a>
   <a href="#reizen">Reizen</a>
 </nav>
@@ -1005,7 +991,7 @@ footer {
     </div>
 
     <span class="hero-date">19 juni 2026</span>
-    <span class="hero-location">in Oosterbeek</span>
+    <span class="hero-location">Oosterbeek</span>
   </div>
 
   <div class="scroll-cue">
@@ -1015,7 +1001,7 @@ footer {
 </section>
 
 <!-- ═══════════════ TROUWTEKST ═══════════════ -->
-<section style="background: var(--mauve-light); padding: 2.5rem 2rem; text-align: center;">
+<section style="background: var(--mauve-light); padding: 2.5rem 2rem; text-align: center;" id="trouwtekst">
   <div style="display:flex; align-items:center; justify-content:center; gap:1rem; max-width:600px; margin: 0 auto;">
     <div style="flex:1; height:1px; background:var(--gold); opacity:0.4;"></div>
     <p style="font-family:'Sacramento',cursive; font-size:clamp(1.4rem, 3.5vw, 2rem); color:var(--wine); line-height:1.5; white-space:nowrap;">"Licht dat altijd schijnt, liefde zonder eind"</p>
@@ -1023,25 +1009,54 @@ footer {
   </div>
 </section>
 
+<!-- Wave: mauve → wine-dark (countdown) -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#e2d0de"/>
+  <path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#681338"/>
+</svg>
+
 <!-- ═══════════════ COUNTDOWN ═══════════════ -->
 <section class="countdown-sec" id="countdown">
   <div style="position:relative; z-index:1;">
-    <span class="sec-label lbl-gold reveal" style="color:var(--gold);">Nog even geduld</span>
-    <h2 class="sec-title title-cream reveal" style="margin-bottom:1rem;">Nog te gaan</h2>
-    <div class="countdown-grid reveal" id="countdown-grid">
-      <div class="countdown-block">
-        <div class="countdown-num" id="cd-days">--</div>
-        <div class="countdown-lbl">Dagen</div>
-      </div>
-    </div>
-    <p style="margin-top:2rem; font-family:'Sacramento',cursive; font-size:1.6rem; color:var(--gold); opacity:0.7;" class="reveal">tot we eindelijk ja zeggen</p>
+    <p style="font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(1rem, 2.5vw, 1.4rem); color:var(--cream); opacity:0.75; line-height:2;" class="reveal">
+      Nog<br>
+      <span class="countdown-num" id="cd-days" style="font-size:clamp(4rem, 10vw, 7rem); line-height:1; display:block;">--</span>
+      dagen te gaan<br>
+      <span style="font-family:'Sacramento',cursive; font-size:clamp(1.6rem, 3.5vw, 2.2rem); color:var(--gold); opacity:0.9;">tot we eindelijk ja zeggen</span>
+    </p>
   </div>
 </section>
 
-<!-- Wave: wine-dark → mauve -->
+<!-- Wave: wine-dark → mauve (RSVP) -->
 <svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#681338"/>
   <path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>
+</svg>
+
+<!-- ═══════════════════════════════ RSVP ═══════════════════════════════ -->
+<section class="rsvp-sec" id="rsvp">
+  <div class="rsvp-blob-l"></div>
+  <div class="rsvp-blob-r"></div>
+  <div class="rsvp-inner">
+    <span class="sec-label lbl-gold-dk reveal">Laat het ons weten</span>
+    <h2 class="sec-title title-wine reveal">Aanmelden</h2>
+    <div class="gold-rule reveal"><span></span></div>
+    <p class="rsvp-prose reveal">
+      Laat ons weten of je erbij bent!<br>
+      Meld je aan via onderstaande knop.<br>
+      <span style="font-size:0.9em; opacity:0.8;">Vergeet niet je dieetwensen of allergieën door te geven.</span>
+    </p>
+    <span class="rsvp-deadline reveal">Aanmelden vóór zondag 17 mei 2026</span>
+    <div class="reveal">
+      <a class="rsvp-btn" href="#" target="_blank">Aanmelden</a>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: mauve → wine-dark (programma) -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#e2d0de"/>
+  <path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#681338"/>
 </svg>
 
 <section class="sec sec-mauve" id="programma">
@@ -1056,7 +1071,7 @@ footer {
       <div class="tl-item" data-role="dag">
         <div class="tl-time">13:30</div>
         <div class="tl-body">
-          <div class="tl-event">Ontvangst daggasten</div>
+          <div class="tl-event">Ontvangst</div>
           <div class="tl-desc">Tuin de Lage Oorsprong</div>
         </div>
       </div>
@@ -1091,8 +1106,8 @@ footer {
       <div class="tl-item" data-role="avond">
         <div class="tl-time">18:30</div>
         <div class="tl-body">
-          <div class="tl-event">Ontvangst avondgasten</div>
-          <div class="tl-desc">Tuin de Lage Oorsprong</div>
+          <div class="tl-event">Ontvangst</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong · koffie & wat lekkers</div>
         </div>
       </div>
 
@@ -1137,29 +1152,31 @@ footer {
 
       <div class="loc-card">
         <div class="loc-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2451.2!2d5.8397!3d51.9823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a4b5e0f6e6a7%3A0x1!2sTuin+de+Lage+Oorsprong%2C+Utrechtseweg+232%2C+Oosterbeek!5e0!3m2!1snl!2snl!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <a class="map-overlay" href="https://maps.google.com/?q=Tuin+de+Lage+Oorsprong,+Utrechtseweg+232,+Oosterbeek" target="_blank" aria-label="Open in Google Maps"></a>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2451.2!2d5.8397!3d51.9823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a4b5e0f6e6a7%3A0x1!2sTuin+de+Lage+Oorsprong%2C+Van+Borsselenweg+36%2C+Oosterbeek!5e0!3m2!1snl!2snl!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <a class="map-overlay" href="https://maps.google.com/?q=Van+Borsselenweg+36,+6862+BJ+Oosterbeek" target="_blank" aria-label="Open in Google Maps"></a>
         </div>
         <div class="loc-info">
-          <div class="loc-type">Ceremonie & Diner</div>
+          <div class="loc-type" data-role="dag">Ceremonie & Diner</div>
+          <div class="loc-type" data-role="avond">Kerkdienst</div>
           <div class="loc-name">Tuin de Lage Oorsprong</div>
-          <div class="loc-what">Ontvangst · Ceremonie · Proost · Diner · Kerkdienst</div>
+          <div class="loc-what" data-role="dag">Ontvangst · Ceremonie · Proost · Diner · Kerkdienst</div>
+          <div class="loc-what" data-role="avond">Ontvangst · Kerkdienst</div>
           <div class="loc-addr">Van Borsselenweg 36, Oosterbeek</div>
-          <a class="loc-link" href="https://maps.google.com/?q=Van+Borsselenweg+36,+Oosterbeek" target="_blank">Route plannen →</a>
+          <a class="loc-link" href="https://maps.google.com/?q=Van+Borsselenweg+36,+6862+BJ+Oosterbeek" target="_blank">Route plannen →</a>
         </div>
       </div>
 
       <div class="loc-card">
         <div class="loc-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2451.2!2d5.8447!3d51.9843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a4b5e0f6e6a8%3A0x2!2sKlein+Hartenstein%2C+Oosterbeek!5e0!3m2!1snl!2snl!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <a class="map-overlay" href="https://maps.google.com/?q=Klein+Hartenstein,+Oosterbeek" target="_blank" aria-label="Open in Google Maps"></a>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2451.2!2d5.8447!3d51.9843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a4b5e0f6e6a8%3A0x2!2sKlein+Hartenstein%2C+Utrechtseweg+226%2C+6862+AZ+Oosterbeek!5e0!3m2!1snl!2snl!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <a class="map-overlay" href="https://maps.google.com/?q=Talsmalaan+1,+6861+NE+Oosterbeek" target="_blank" aria-label="Open in Google Maps"></a>
         </div>
         <div class="loc-info">
           <div class="loc-type">Feest</div>
           <div class="loc-name">Klein Hartenstein</div>
           <div class="loc-what">Feest vanaf 20:15</div>
           <div class="loc-addr">Utrechtseweg 226, Oosterbeek</div>
-          <a class="loc-link" href="https://maps.google.com/?q=Talsmalaan+1,+Oosterbeek" target="_blank">Route plannen →</a>
+          <a class="loc-link" href="https://maps.google.com/?q=Talsmalaan+1,+6861+NE+Oosterbeek" target="_blank">Route plannen →</a>
         </div>
       </div>
 
@@ -1195,31 +1212,11 @@ footer {
           <p>[Bericht van de ceremoniemeesters — nog in te vullen]</p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Wave: mauve → wine (RSVP) -->
-<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#8B1A4A"/>
-  <path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>
-</svg>
-
-<!-- ═══════════════════════════════ RSVP ═══════════════════════════════ -->
-<section class="rsvp-sec" id="rsvp">
-  <div class="rsvp-blob-l"></div>
-  <div class="rsvp-blob-r"></div>
-  <div class="rsvp-inner">
-    <span class="sec-label lbl-gold-dk reveal">Laat het ons weten</span>
-    <h2 class="sec-title title-wine reveal">Aanmelden</h2>
-    <div class="gold-rule reveal"><span></span></div>
-    <p class="rsvp-prose reveal">
-      Kom jij ook? Wij horen het heel graag!<br>
-      Meld je aan via onderstaande knop.
-    </p>
-    <span class="rsvp-deadline reveal">Aanmelden vóór [datum]</span>
-    <div class="reveal">
-      <a class="rsvp-btn" href="#" target="_blank">Aanmelden</a>
+      <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(139,26,74,0.15);">
+        <p style="font-family:'Jost',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold-dark); margin-bottom:0.75rem;">Vragen? Neem contact op met</p>
+        <p style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.15rem; color:var(--wine); margin-bottom:0.3rem;">Annerie & Eva</p>
+        <a href="mailto:placeholder@email.nl" style="font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--wine-dark); text-decoration:none; border-bottom:1px solid rgba(139,26,74,0.3); padding-bottom:2px;">placeholder@email.nl</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1247,6 +1244,7 @@ footer {
             Utrechtseweg 261<br>
             6862 AK Oosterbeek
           </div>
+          <span class="hotel-dist" style="display:block; margin-bottom:0.4rem; color:var(--mauve-light);">Dichtbij beide locaties</span>
           <a class="hotel-dist" href="https://www.bilderberg.nl/nl/oosterbeek/hotel-de-bilderberg/" target="_blank" style="color:var(--gold); text-decoration:none; border-bottom: 1px solid rgba(201,168,76,0.3);">www.bilderberg.nl →</a>
         </div>
       </div>
@@ -1266,7 +1264,6 @@ footer {
     </div>
 
     <p class="hotel-note reveal">
-      Meer aanbevelingen volgen binnenkort.<br>
       Reserveer op tijd — Oosterbeek is populair in juni!
     </p>
   </div>
@@ -1292,6 +1289,14 @@ footer {
         <div class="travel-title">Met de trein</div>
         <div class="travel-text">
           Reis naar station Arnhem Centraal, daarna verder met bus of taxi naar Oosterbeek.
+        </div>
+      </div>
+
+      <div class="travel-card">
+        <div class="travel-icon"><i class="ph ph-bus"></i></div>
+        <div class="travel-title">Met de bus</div>
+        <div class="travel-text">
+          Lijn 352 of 51 vanaf Arnhem Centraal richting Wageningen. Uitstappen bij halte <strong style="color:var(--cream);">Oosterbeek, Van Borsselenweg</strong> — direct bij Tuin de Lage Oorsprong. Rijdt elke 20 minuten.
         </div>
       </div>
 
@@ -1331,8 +1336,8 @@ footer {
         <div class="travel-card" style="text-align:left;" data-role="dag">
           <div class="travel-title" style="text-align:left; margin-bottom:0.6rem;">Parkeren bij Tuin de Lage Oorsprong</div>
           <div class="travel-text" style="text-align:left;">
-            Bij de tuin zijn <strong style="color:var(--cream);">19 parkeerplaatsen</strong> beschikbaar. Extra parkeermogelijkheden in de buurt:<br><br>
-            · Parkeerplaats Landgoed De Oorsprong, Van Borsselenweg 31 (gratis)<br>
+            Er zijn meerdere gratis parkeermogelijkheden in de buurt:<br><br>
+            · Parkeerplaats Landgoed De Oorsprong, Van Borsselenweg 31<br>
             · Parkeerhavens langs de Van Borsselenweg<br>
             · Kleine parkeerplaats in het bos (noord van de tuin)<br><br>
             Vanaf deze plekken loopt een gemarkeerde route door het beekdal naar de tuin.
@@ -1343,7 +1348,7 @@ footer {
           <div class="travel-title" style="text-align:left; margin-bottom:0.6rem;">Parkeren bij Klein Hartenstein</div>
           <div class="travel-text" style="text-align:left;">
             Bij Klein Hartenstein is <strong style="color:var(--cream);">voldoende parkeergelegenheid</strong> aanwezig.<br><br>
-            Kom je eerst naar de kerkdienst in Tuin de Lage Oorsprong? Parkeer dan alvast bij Klein Hartenstein en loop naar TLO — dat is circa 1,4 km (±18 minuten).<br><br>
+            Kom je eerst naar de kerkdienst in Tuin de Lage Oorsprong? Parkeer dan alvast bij Klein Hartenstein en loop naar de tuin — dat is circa 1,4 km (±18 minuten).<br><br>
             · Navigatieadres: <strong style="color:var(--cream);">Talsmalaan 1, Oosterbeek</strong><br>
             · Tip: doe comfortabele schoenen aan!
           </div>
@@ -1360,7 +1365,29 @@ footer {
   <div class="footer-date">19 · 06 · 2026 · Oosterbeek</div>
 </footer>
 
+<!-- ═══════════════ DEV SWITCHER ═══════════════ -->
+<div class="dev-switcher">
+  <div class="dev-menu" id="dev-menu">
+    <button onclick="devSwitch('dag')">Daggasten</button>
+    <button onclick="devSwitch('avond')">Avondgasten</button>
+    <button onclick="devSwitch('reset')">Inlogscherm</button>
+  </div>
+  <button class="dev-btn" onclick="document.getElementById('dev-menu').classList.toggle('open')">dev</button>
+</div>
+
 <script>
+// ── DEV SWITCHER ──
+function devSwitch(role) {
+  document.getElementById('dev-menu').classList.remove('open');
+  if (role === 'reset') {
+    sessionStorage.clear();
+  } else {
+    sessionStorage.setItem('auth', role);
+  }
+  sessionStorage.setItem('scrolltop', '1');
+  location.reload();
+}
+
 // ── BLOB GENEREREN ──
 (function() {
   const W = 340, H = 560, margin = 40, amplitude = 16, waves = 4, steps = 400;
@@ -1393,26 +1420,35 @@ footer {
 })();
 
 // ── WACHTWOORD ──
-const PASSWORDS = { 'daggast': 'dag', 'avondgast': 'avond' };
+const HASHES = {
+  '51e51941a25275768ebad5306ffd1fb9140365029327b5ad3be585874b872a2d': 'dag',
+  '3ce41250a068cf504dc759f88a520ff14d7ec021505b31f63d80295d9dfd441b': 'avond'
+};
 
-function checkPassword() {
+async function checkPassword() {
   const val = document.getElementById('pw-input').value.trim().toLowerCase();
-  let role = null;
-  if (val === 'daggast') role = 'dag';
-  else if (val === 'avondgast') role = 'avond';
+  const encoder = new TextEncoder();
+  const data = encoder.encode(val);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  const role = HASHES[hash];
 
   if (role) {
     const screen = document.getElementById('password-screen');
     screen.style.transition = 'opacity 0.6s ease';
     screen.style.opacity = '0';
     setTimeout(() => { screen.style.display = 'none'; }, 600);
+    document.body.style.overflow = '';
     sessionStorage.setItem('auth', role);
     applyRole(role);
+    window.scrollTo(0, 0);
   } else {
     const err = document.getElementById('pw-error');
     err.textContent = 'Onjuist wachtwoord — probeer het opnieuw.';
     const input = document.getElementById('pw-input');
     input.style.borderColor = 'rgba(220,100,120,0.7)';
+    input.value = '';
     setTimeout(() => {
       err.textContent = '';
       input.style.borderColor = '';
@@ -1438,39 +1474,51 @@ document.getElementById('pw-input').addEventListener('keydown', function(e) {
 const savedRole = sessionStorage.getItem('auth');
 if (savedRole === 'dag' || savedRole === 'avond') {
   document.getElementById('password-screen').style.display = 'none';
+  document.body.style.overflow = '';
   applyRole(savedRole);
+}  else {
+  document.body.style.overflow = 'hidden';
 }
+if (sessionStorage.getItem('scrolltop')) {
+  sessionStorage.removeItem('scrolltop');
+}
+window.scrollTo(0, 0);
+
+// ── URL TOKEN AUTO-LOGIN ──
+(async function() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('toegang');
+  if (token) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(token.trim().toLowerCase());
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    const role = HASHES[hash];
+    if (role) {
+      document.getElementById('password-screen').style.display = 'none';
+      document.body.style.overflow = '';
+      sessionStorage.setItem('auth', role);
+      applyRole(role);
+      window.scrollTo(0, 0);
+    }
+  }
+})();
 
 // ── COUNTDOWN ──
 function updateCountdown() {
-  const grid = document.getElementById('countdown-grid');
-  if (!grid) return;
   const target = new Date('2026-06-19T13:30:00');
-  const now = new Date();
-  const diff = target - now;
-
+  const diff = target - new Date();
+  const d = document.getElementById('cd-days');
+  if (!d) return;
   if (diff <= 0) {
-    grid.innerHTML = '<p class="countdown-done">Het is zover — vandaag trouwen wij!</p>';
+    d.textContent = '0';
     return;
   }
-
-  const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const secs  = Math.floor((diff % (1000 * 60)) / 1000);
-
-  const d = document.getElementById('cd-days');
-  const h = document.getElementById('cd-hours');
-  const m = document.getElementById('cd-mins');
-  const s = document.getElementById('cd-secs');
-  if (d) d.textContent = String(days).padStart(2, '0');
-  if (h) h.textContent = String(hours).padStart(2, '0');
-  if (m) m.textContent = String(mins).padStart(2, '0');
-  if (s) s.textContent = String(secs).padStart(2, '0');
+  d.textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
 }
-
 updateCountdown();
-setInterval(updateCountdown, 1000);
+setInterval(updateCountdown, 1000 * 60);
 
 // ── FAQ ──
 function toggleFaq(btn) {
