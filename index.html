@@ -1655,13 +1655,14 @@ function toggleSecret() {
 
 // ── CLOUDINARY FOTO'S ──
 const CLOUD_NAME = 'dopiobut2';
-const UPLOAD_PRESET = 'trouw_uploads';
+const UPLOAD_PRESET = 'bruiloft2026';
 
 function openUploadWidget() {
   cloudinary.openUploadWidget({
     cloudName: CLOUD_NAME,
     uploadPreset: UPLOAD_PRESET,
-    folder: 'trouw_uploads',
+    folder: 'bruiloft2026',
+    tags: ['bruiloft2026'],
     sources: ['local', 'camera'],
     multiple: true,
     maxFiles: 20,
@@ -1743,7 +1744,7 @@ function openLightbox(url) {
 
 async function loadGallery() {
   try {
-    const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/trouw_uploads.json`);
+    const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/bruiloft2026.json`);
     if (!res.ok) return;
     const data = await res.json();
     if (data.resources && data.resources.length > 0) {
