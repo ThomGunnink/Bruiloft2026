@@ -1744,16 +1744,23 @@ function openLightbox(url) {
 
 async function loadGallery() {
   try {
-    const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/bruiloft2026.json`);
-    if (!res.ok) return;
+    const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/bruiloft2026.json`, {
+      mode: 'cors',
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) {
+      console.log('Gallery response not ok:', res.status);
+      return;
+    }
     const data = await res.json();
+    console.log('Gallery data:', data);
     if (data.resources && data.resources.length > 0) {
       data.resources
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        .forEach(r => addGalleryItem(r.secure_url));
+        .forEach(r => addGalleryItem(`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${r.public_id}`));
     }
   } catch(e) {
-    console.log('Gallery load:', e);
+    console.log('Gallery load error:', e);
   }
 }
 loadGallery();
