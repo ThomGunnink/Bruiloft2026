@@ -866,6 +866,74 @@ nav a:hover { color: var(--gold); }
   letter-spacing: 0.2em;
   color: rgba(201,168,76,0.6);
 }
+/* ── GALERIJ OVERLAY ── */
+.gallery-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(77,14,42,0.97);
+  z-index: 9985;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.gallery-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  flex-shrink: 0;
+}
+.gallery-overlay-title {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--mauve-light);
+}
+.gallery-overlay-count {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(201,168,76,0.6);
+}
+.gallery-overlay-close {
+  background: none;
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold);
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.gallery-overlay-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+@media (min-width: 600px) {
+  .gallery-overlay-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 900px) {
+  .gallery-overlay-grid { grid-template-columns: repeat(5, 1fr); }
+}
+.gallery-overlay-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.gallery-overlay-item:hover { transform: scale(1.03); opacity: 0.9; }
+.gallery-overlay-item img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
 .lightbox-download {
   position: fixed;
   top: 1.25rem;
@@ -1949,7 +2017,7 @@ function renderGrid() {
       <img id="gallery-rotate-img" src="${allPhotos[MAX_GRID - 1].replace('/upload/', '/upload/w_400,h_400,c_fill,q_60/')}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.25;transition:opacity 0.6s;" />
       <span style="position:relative;font-family:'DM Serif Display',serif;font-style:italic;font-size:1.8rem;color:var(--gold);z-index:1;">+${extra}</span>
       <span style="position:relative;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--mauve-light);opacity:0.8;z-index:1;">meer foto's</span>`;
-    more.onclick = () => openLightbox(MAX_GRID - 1);
+    more.onclick = () => openGalleryOverlay();
     grid.appendChild(more);
 
     // Doorwisselende achtergrond in de +X tegel
@@ -1999,6 +2067,52 @@ function renderFullGrid() {
       loadMoreBtn.style.display = 'none';
     }
   }
+}
+
+function openGalleryOverlay() {
+  const ov = document.createElement('div');
+  ov.className = 'gallery-overlay';
+  ov.id = 'gallery-overlay';
+
+  const header = `
+    <div class="gallery-overlay-header">
+      <div>
+        <div class="gallery-overlay-title">Alle foto's</div>
+        <div class="gallery-overlay-count">${allPhotos.length} foto's gedeeld</div>
+      </div>
+      <button class="gallery-overlay-close" onclick="document.getElementById('gallery-overlay').remove()">Sluiten</button>
+    </div>`;
+
+  const grid = document.createElement('div');
+  grid.className = 'gallery-overlay-grid';
+
+  allPhotos.forEach((url, i) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-overlay-item';
+    const img = document.createElement('img');
+    img.src = url.replace('/upload/', '/upload/w_400,h_400,c_fill,q_60/');
+    img.loading = 'lazy';
+    img.alt = `Foto ${i + 1}`;
+    item.appendChild(img);
+    item.onclick = () => {
+      document.getElementById('gallery-overlay').remove();
+      openLightbox(i);
+    };
+    grid.appendChild(item);
+  });
+
+  ov.innerHTML = header;
+  ov.appendChild(grid);
+  document.body.appendChild(ov);
+
+  // Sluit met Escape
+  const escHandler = (e) => {
+    if (e.key === 'Escape') {
+      const el = document.getElementById('gallery-overlay');
+      if (el) { el.remove(); document.removeEventListener('keydown', escHandler); }
+    }
+  };
+  document.addEventListener('keydown', escHandler);
 }
 
 let currentIndex = 0;
