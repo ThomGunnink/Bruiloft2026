@@ -4,11 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thom & Louelle — 19.06.2026</title>
+<meta name="description" content="Thom & Louelle gaan trouwen op vrijdag 19 juni 2026 in Oosterbeek. Bekijk het programma, de locaties en meld je aan!">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Thom & Louelle — 19.06.2026">
+<meta property="og:description" content="Wij gaan trouwen! Vrijdag 19 juni 2026 · Oosterbeek">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="shortcut icon" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500&family=Sacramento&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 <style>
 /* ── PASSWORD SCREEN ── */
 #password-screen {
@@ -229,18 +235,14 @@ nav a:hover { color: var(--gold); }
 .hero-blob {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   pointer-events: none;
   z-index: 1;
 }
 .hero-blob svg {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   animation: blobFade 1.2s ease 0.2s forwards;
-  preserveAspectRatio: none;
 }
 @keyframes blobFade {
   to { opacity: 1; }
@@ -645,6 +647,7 @@ nav a:hover { color: var(--gold); }
   transition: background 0.2s;
   border: none;
   cursor: pointer;
+  border-radius: 12px;
 }
 .rsvp-btn:hover { background: var(--wine-dark); }
 
@@ -714,6 +717,7 @@ nav a:hover { color: var(--gold); }
   padding: 1.75rem 1.5rem;
   text-align: center;
   position: relative;
+  border-radius: 12px;
 }
 .travel-icon {
   width: 52px; height: 52px;
@@ -768,17 +772,22 @@ nav a:hover { color: var(--gold); }
   cursor: pointer;
   transition: background 0.2s;
   border: none;
+  border-radius: 12px;
 }
 .upload-btn:hover { background: var(--gold-light); }
+.upload-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
+}
+@media (max-width: 480px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
 }
 .gallery-item {
   aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
   transition: transform 0.2s;
 }
@@ -792,19 +801,64 @@ nav a:hover { color: var(--gold); }
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(77,14,42,0.95);
+  background: rgba(77,14,42,0.97);
   z-index: 9990;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  cursor: pointer;
+  padding: 1rem;
 }
-.lightbox img {
-  max-width: 90vw;
-  max-height: 90vh;
+.lightbox-img {
+  max-width: min(90vw, 700px);
+  max-height: 80vh;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: 12px;
+  display: block;
+}
+.lightbox-close {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: none;
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.lightbox-prev, .lightbox-next {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold);
+  font-size: 1.4rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s;
+  user-select: none;
+}
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+.lightbox-prev:hover, .lightbox-next:hover { background: rgba(201,168,76,0.3); }
+.lightbox-counter {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(201,168,76,0.6);
 }
 
 /* ── FOOTER ── */
@@ -996,6 +1050,43 @@ footer {
   .tl-item::after { left: 64px; }
   .tl-time { font-size: 10px; }
 }
+
+/* ── EXTRA SECTION CLASSES ── */
+.sec-trouwtekst {
+  background: var(--mauve-light);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+.sec-ceremoniemeesters {
+  background: var(--mauve-light);
+  padding: 4rem 1.5rem;
+}
+.sec-fotos-deeper {
+  background: var(--wine-deeper);
+}
+
+/* ── TROUWTEKST ── */
+.trouwtekst-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.trouwtekst-line {
+  flex: 1;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+}
+.trouwtekst-quote {
+  font-family: 'Sacramento', cursive;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  color: var(--wine);
+  line-height: 1.5;
+  white-space: nowrap;
+}
 </style>
 </head>
 <body>
@@ -1037,7 +1128,7 @@ footer {
 </nav>
 
 <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
-<section class="hero" id="welkom" style="background: var(--mauve-light);">
+<section class="hero sec-mauve" id="welkom">
 
   <div class="hero-blob">
     <svg id="blobsvg" viewBox="0 0 340 560" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100vw; height:100vh; position:absolute; top:0; left:0;">
@@ -1077,11 +1168,11 @@ footer {
 </section>
 
 <!-- ═══════════════ TROUWTEKST ═══════════════ -->
-<section style="background: var(--mauve-light); padding: 2.5rem 2rem; text-align: center;" id="trouwtekst">
-  <div style="display:flex; align-items:center; justify-content:center; gap:1rem; max-width:600px; margin: 0 auto;">
-    <div style="flex:1; height:1px; background:var(--gold); opacity:0.4;"></div>
-    <p style="font-family:'Sacramento',cursive; font-size:clamp(1.4rem, 3.5vw, 2rem); color:var(--wine); line-height:1.5; white-space:nowrap;">"Licht dat altijd schijnt, liefde zonder eind"</p>
-    <div style="flex:1; height:1px; background:var(--gold); opacity:0.4;"></div>
+<section class="sec-trouwtekst" id="trouwtekst">
+  <div class="trouwtekst-inner">
+    <div class="trouwtekst-line"></div>
+    <p class="trouwtekst-quote">"Licht dat altijd schijnt, liefde zonder eind"</p>
+    <div class="trouwtekst-line"></div>
   </div>
 </section>
 
@@ -1104,7 +1195,7 @@ footer {
 </section>
 
 <!-- Wave: wine-dark → mauve (RSVP) -->
-<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<svg id="wave-before-rsvp" class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#681338"/>
   <path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>
 </svg>
@@ -1129,10 +1220,10 @@ footer {
   </div>
 </section>
 
-<!-- Wave: mauve → wine-dark (programma) -->
+<!-- Wave: mauve → wine-dark → mauve (programma) -->
 <svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#e2d0de"/>
-  <path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#681338"/>
+  <path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#8B1A4A"/>
 </svg>
 
 <section class="sec sec-mauve" id="programma">
@@ -1183,7 +1274,7 @@ footer {
         <div class="tl-time">18:30</div>
         <div class="tl-body">
           <div class="tl-event">Ontvangst</div>
-          <div class="tl-desc">Tuin de Lage Oorsprong · koffie & wat lekkers</div>
+          <div class="tl-desc">Tuin de Lage Oorsprong</div>
         </div>
       </div>
 
@@ -1211,10 +1302,10 @@ footer {
   </div>
 </section>
 
-<!-- Wave: mauve → wine -->
+<!-- Wave: wine-dark → wine (locaties) -->
 <svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#e2d0de"/>
-  <path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#8B1A4A"/>
+  <path d="M0,0 L0,30 Q250,65 520,32 Q760,4 1020,44 Q1200,68 1440,24 L1440,0 Z" fill="#8B1A4A"/>
 </svg>
 
 <!-- ═══════════════════════════════ LOCATIES ═══════════════════════════════ -->
@@ -1245,14 +1336,14 @@ footer {
       <div class="loc-card">
         <div class="loc-map">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2451.2!2d5.8447!3d51.9843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a4b5e0f6e6a8%3A0x2!2sKlein+Hartenstein%2C+Utrechtseweg+226%2C+6862+AZ+Oosterbeek!5e0!3m2!1snl!2snl!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <a class="map-overlay" href="https://maps.google.com/?q=Talsmalaan+1,+6861+NE+Oosterbeek" target="_blank" aria-label="Open in Google Maps"></a>
+          <a class="map-overlay" href="https://maps.google.com/?q=Utrechtseweg+226,+6862+AZ+Oosterbeek" target="_blank" aria-label="Open in Google Maps"></a>
         </div>
         <div class="loc-info">
           <div class="loc-type">Feest</div>
           <div class="loc-name">Klein Hartenstein</div>
           <div class="loc-what">Feest vanaf 20:15</div>
           <div class="loc-addr">Utrechtseweg 226, Oosterbeek</div>
-          <a class="loc-link" href="https://maps.google.com/?q=Talsmalaan+1,+6861+NE+Oosterbeek" target="_blank">Route plannen →</a>
+          <a class="loc-link" href="https://maps.google.com/?q=Utrechtseweg+226,+6862+AZ+Oosterbeek" target="_blank">Route plannen →</a>
         </div>
       </div>
 
@@ -1267,7 +1358,7 @@ footer {
 </svg>
 
 <!-- ═══════════════ CEREMONIEMEESTERS ═══════════════ -->
-<section style="background: var(--mauve-light); padding: 4rem 1.5rem;" id="ceremoniemeesters">
+<section class="sec-ceremoniemeesters" id="ceremoniemeesters">
   <div class="sec-inner">
     <div class="reveal" style="max-width: 560px; margin: 0 auto; text-align: center;">
       <span class="sec-label lbl-gold-dk">Alleen voor jullie gasten</span>
@@ -1321,7 +1412,7 @@ footer {
             6862 AK Oosterbeek
           </div>
           <span class="hotel-dist" style="display:block; margin-bottom:0.4rem; color:var(--mauve-light);">Dichtbij beide locaties</span>
-          <a class="hotel-dist" href="https://www.bilderberg.nl/nl/oosterbeek/hotel-de-bilderberg/" target="_blank" style="color:var(--gold); text-decoration:none; border-bottom: 1px solid rgba(201,168,76,0.3);">www.bilderberg.nl →</a>
+          <a class="hotel-dist" href="https://www.bilderberg.nl/oosterbeek/hotel-de-bilderberg/" target="_blank" style="color:var(--gold); text-decoration:none; border-bottom: 1px solid rgba(201,168,76,0.3);">www.bilderberg.nl →</a>
         </div>
       </div>
 
@@ -1364,7 +1455,7 @@ footer {
         <div class="travel-icon"><i class="ph ph-train"></i></div>
         <div class="travel-title">Met de trein</div>
         <div class="travel-text">
-          Reis naar station Arnhem Centraal, daarna verder met bus of taxi naar Oosterbeek.
+          Reis naar station Arnhem Centraal, daarna verder met bus, OV-fiets of taxi naar Oosterbeek.
         </div>
       </div>
 
@@ -1425,7 +1516,6 @@ footer {
           <div class="travel-text" style="text-align:left;">
             Bij Klein Hartenstein is <strong style="color:var(--cream);">voldoende parkeergelegenheid</strong> aanwezig.<br><br>
             Kom je eerst naar de kerkdienst in Tuin de Lage Oorsprong? Parkeer dan alvast bij Klein Hartenstein en loop naar de tuin — dat is circa 1,4 km (±18 minuten).<br><br>
-            · Navigatieadres: <strong style="color:var(--cream);">Talsmalaan 1, Oosterbeek</strong><br>
             · Tip: doe comfortabele schoenen aan!
           </div>
         </div>
@@ -1436,13 +1526,13 @@ footer {
 </section>
 
 <!-- Wave: wine → wine-dark (foto's) -->
-<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<svg id="wave-before-fotos" class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#8B1A4A"/>
   <path d="M0,0 L0,30 Q250,65 520,32 Q760,4 1020,44 Q1200,68 1440,24 L1440,0 Z" fill="#4d0e2a"/>
 </svg>
 
 <!-- ═══════════════════════════════ FOTO'S ═══════════════════════════════ -->
-<section class="sec sec-dark" id="fotos" style="background: var(--wine-deeper);">
+<section class="sec sec-dark sec-fotos-deeper" id="fotos">
   <div class="sec-inner">
     <span class="sec-label lbl-gold reveal">Deel jullie herinneringen</span>
     <h2 class="sec-title title-cream reveal">Foto's</h2>
@@ -1452,10 +1542,17 @@ footer {
       <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:var(--mauve-light); line-height:1.8; margin-bottom:1.75rem;">
         Outfit check ✓ Confetti in je haar ✓ Foto maken en hier delen!<br>Wij zijn benieuwd naar jouw dag — van de voordeur tot de dansvloer.
       </p>
-      <button class="upload-btn" id="upload-btn" onclick="openUploadWidget()">
-        <i class="ph ph-camera" style="font-size:18px; margin-right:0.5rem;"></i>
-        Foto's uploaden
-      </button>
+      <div class="upload-btns">
+        <button class="upload-btn" id="upload-btn" onclick="openUploadWidget()">
+          <i class="ph ph-images" style="font-size:16px; margin-right:0.5rem;"></i>
+          Foto's uploaden
+        </button>
+        <label class="upload-btn" style="background:var(--wine); color:var(--mauve-light); border:1px solid rgba(201,168,76,0.4);">
+          <i class="ph ph-camera" style="font-size:16px; margin-right:0.5rem;"></i>
+          Foto maken
+          <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="uploadCameraPhoto(this)"/>
+        </label>
+      </div>
       <p id="upload-status" style="font-family:'Jost',sans-serif; font-size:12px; color:var(--gold); margin-top:1rem; min-height:1.5em;"></p>
     </div>
 
@@ -1464,13 +1561,24 @@ footer {
         Nog geen foto's gedeeld — wees de eerste!
       </p>
     </div>
+    <div style="text-align:center; margin-top:1.5rem;">
+      <button id="load-more-btn" onclick="loadMorePhotos()" style="display:none; font-family:'Jost',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--mauve-light); background:none; border:1px solid rgba(201,168,76,0.4); padding:0.75rem 2rem; cursor:pointer; transition:all 0.2s;">Laad meer foto's</button>
+    </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
 <footer>
   <div class="footer-names">Thom & Louelle</div>
-  <div class="footer-date">19 · 06 · 2026 · Oosterbeek</div>
+  <div class="footer-date">19 · 06 · <span id="easter-year" onclick="toggleWeather()" style="cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s;" title="">2026</span> · Oosterbeek</div>
+  <div id="weather-widget" style="display:none; margin-top:1.5rem; opacity:0; transition:opacity 0.4s;">
+    <div style="display:inline-block; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:1.25rem 2rem; border-radius:8px; max-width:280px;">
+      <div style="font-family:'Jost',sans-serif; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:0.75rem;">Weersvoorspelling · 19 juni 2026</div>
+      <div id="weather-content">
+        <div style="font-family:'Jost',sans-serif; font-size:11px; color:var(--mauve-mid);">Laden...</div>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <!-- ═══════════════ DEV SWITCHER ═══════════════ -->
@@ -1479,11 +1587,27 @@ footer {
     <button onclick="devSwitch('dag')">Daggasten</button>
     <button onclick="devSwitch('avond')">Avondgasten</button>
     <button onclick="devSwitch('reset')">Inlogscherm</button>
+    <div style="height:1px; background:rgba(201,168,76,0.2); margin:4px 0;"></div>
+    <button onclick="devDate('now')">📅 Nu (normaal)</button>
+    <button onclick="devDate('june12')">📅 12 juni (foto's omhoog)</button>
+    <button onclick="devDate('june20')">📅 20 juni (na bruiloft)</button>
   </div>
   <button class="dev-btn" onclick="document.getElementById('dev-menu').classList.toggle('open')">dev</button>
 </div>
 
 <script>
+// ── DEV DATUM OVERRIDE ──
+const _devDate = sessionStorage.getItem('devDate');
+if (_devDate) {
+  const _realDate = Date;
+  Date = class extends _realDate {
+    constructor(...a) {
+      if (!a.length) super(_devDate);
+      else super(...a);
+    }
+    static now() { return new _realDate(_devDate).getTime(); }
+  };
+}
 // ── DEV SWITCHER ──
 function devSwitch(role) {
   document.getElementById('dev-menu').classList.remove('open');
@@ -1496,35 +1620,69 @@ function devSwitch(role) {
   location.reload();
 }
 
+function devDate(date) {
+  document.getElementById('dev-menu').classList.remove('open');
+  const dates = {
+    'now':    null,
+    'june12': '2026-06-12T01:00:00',
+    'june20': '2026-06-20T01:00:00'
+  };
+  if (dates[date]) {
+    sessionStorage.setItem('devDate', dates[date]);
+  } else {
+    sessionStorage.removeItem('devDate');
+  }
+  location.reload();
+}
+
 // ── BLOB GENEREREN ──
 (function() {
-  const W = 340, H = 560, margin = 40, amplitude = 16, waves = 4, steps = 400;
-  function makePath() {
+  const AMPLITUDE_PX = 18;
+  const waves = 4, steps = 400;
+  const VB_W = 340;
+
+  function makePath(svgW, svgH) {
+    const scaleX = VB_W / svgW;
+    const amp = AMPLITUDE_PX * scaleX;
+    const margin = 40 * scaleX;
+    const VB_H = svgH * scaleX;
     const pts = [];
-    pts.push(`M${margin},0 L${W - margin},0`);
+    pts.push(`M${margin},0 L${VB_W - margin},0`);
     let r = [];
     for (let i = 0; i <= steps; i++) {
       const t = i / steps;
-      const x = (W - margin) + amplitude * Math.sin(t * waves * 2 * Math.PI);
-      r.push(`${x.toFixed(2)},${(t * H).toFixed(2)}`);
+      r.push(`${((VB_W - margin) + amp * Math.sin(t * waves * 2 * Math.PI)).toFixed(2)},${(t * VB_H).toFixed(2)}`);
     }
     pts.push('L' + r.join(' L'));
-    pts.push(`L${margin},${H}`);
+    pts.push(`L${margin},${VB_H}`);
     let l = [];
     for (let i = steps; i >= 0; i--) {
       const t = i / steps;
-      const x = margin - amplitude * Math.sin(t * waves * 2 * Math.PI);
-      l.push(`${x.toFixed(2)},${(t * H).toFixed(2)}`);
+      l.push(`${(margin - amp * Math.sin(t * waves * 2 * Math.PI)).toFixed(2)},${(t * VB_H).toFixed(2)}`);
     }
     pts.push('L' + l.join(' L'));
     pts.push('Z');
-    return pts.join(' ');
+    return { d: pts.join(' '), vbH: VB_H };
   }
-  const d = makePath();
-  const b1 = document.getElementById('blobpath');
-  if (b1) b1.setAttribute('d', d);
-  const b2 = document.getElementById('pwblobpath');
-  if (b2) b2.setAttribute('d', d);
+
+  function updateBlob(svgEl, pathId) {
+    if (!svgEl) return;
+    const rect = svgEl.getBoundingClientRect();
+    const svgW = rect.width || window.innerWidth;
+    const svgH = rect.height || window.innerHeight;
+    const { d, vbH } = makePath(svgW, svgH);
+    svgEl.setAttribute('viewBox', `0 0 ${VB_W} ${vbH.toFixed(0)}`);
+    const path = document.getElementById(pathId);
+    if (path) path.setAttribute('d', d);
+  }
+
+  function init() {
+    updateBlob(document.getElementById('blobsvg'), 'blobpath');
+    updateBlob(document.getElementById('pwblobsvg'), 'pwblobpath');
+  }
+
+  init();
+  window.addEventListener('resize', init);
 })();
 
 // ── WACHTWOORD ──
@@ -1656,6 +1814,10 @@ function toggleSecret() {
 // ── CLOUDINARY FOTO'S ──
 const CLOUD_NAME = 'dopiobut2';
 const UPLOAD_PRESET = 'bruiloft2026';
+const MAX_GRID = 6;
+const PAGE_SIZE = 24;
+let allPhotos = [];
+let visibleCount = PAGE_SIZE;
 
 function openUploadWidget() {
   cloudinary.openUploadWidget({
@@ -1663,104 +1825,174 @@ function openUploadWidget() {
     uploadPreset: UPLOAD_PRESET,
     folder: 'bruiloft2026',
     tags: ['bruiloft2026'],
-    sources: ['local', 'camera'],
+    sources: ['local'],
     multiple: true,
     maxFiles: 20,
     clientAllowedFormats: ['jpg', 'jpeg', 'png', 'heic', 'webp'],
     maxFileSize: 20000000,
-    language: 'nl',
-    text: {
-      nl: {
-        or: 'of',
-        back: 'Terug',
-        advanced: 'Geavanceerd',
-        close: 'Sluiten',
-        no_results: 'Geen resultaten',
-        search_placeholder: 'Zoeken...',
-        about_uw: 'Over de widget',
-        menu: { files: 'Mijn bestanden', camera: 'Camera' },
-        selection_counter: { file: 'bestand', files: 'bestanden' },
-        actions: { upload: 'Uploaden', clear_all: 'Alles wissen', log_out: 'Uitloggen' },
-        notifications: { general_error: 'Er is een fout opgetreden.', general_prompt: 'Weet je het zeker?', limit_reached: 'Limiet bereikt.' },
-        ready: 'Klaar voor upload',
-        uploading: 'Uploaden...',
-        upload_error: 'Fout bij uploaden',
-        drop_title_single: 'Sleep je foto hierheen',
-        drop_title_multiple: 'Sleep je foto\'s hierheen',
-        crop: { title: 'Bijsnijden', crop_btn: 'Bijsnijden', skip_btn: 'Overslaan', reset_btn: 'Resetten', close_btn: 'Sluiten', close_prompt: 'Weet je het zeker?', image_error: 'Afbeeldingsfout', frame_error: 'Framesfout', dimension_error: 'Dimensiefout' },
-        upload_progress: { uploading: 'Uploaden...', complete: 'Klaar!', failed: 'Mislukt' },
-        local: { browse: 'Bladeren', dd_title_single: 'Sleep je foto hierheen', dd_title_multiple: 'Sleep je foto\'s hierheen', drop_title: 'Sleep hierheen' }
-      }
-    },
     styles: {
       palette: {
-        window: '#4d0e2a',
-        windowBorder: '#8B1A4A',
-        tabIcon: '#C9A84C',
-        menuIcons: '#e2d0de',
-        textDark: '#fdf8f2',
-        textLight: '#fdf8f2',
-        link: '#C9A84C',
-        action: '#C9A84C',
-        inactiveTabIcon: '#b48daa',
-        error: '#f44235',
-        inProgress: '#C9A84C',
-        complete: '#20b832',
-        sourceBg: '#681338'
-      },
-      fonts: { default: null, "'Jost', sans-serif": { url: 'https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap', active: true } }
+        window: '#4d0e2a', windowBorder: '#8B1A4A', tabIcon: '#C9A84C',
+        menuIcons: '#e2d0de', textDark: '#fdf8f2', textLight: '#fdf8f2',
+        link: '#C9A84C', action: '#C9A84C', inactiveTabIcon: '#b48daa',
+        error: '#f44235', inProgress: '#C9A84C', complete: '#20b832', sourceBg: '#681338'
+      }
     }
   }, (error, result) => {
     if (!error && result && result.event === 'success') {
-      addGalleryItem(result.info.secure_url);
-      const status = document.getElementById('upload-status');
-      status.textContent = 'Foto geüpload!';
-      setTimeout(() => { status.textContent = ''; }, 3000);
+      addPhoto(result.info.secure_url, true);
     }
   });
 }
 
-function addGalleryItem(url) {
+async function uploadCameraPhoto(input) {
+  if (!input.files || !input.files[0]) return;
+  const status = document.getElementById('upload-status');
+  status.textContent = 'Uploaden...';
+  const fd = new FormData();
+  fd.append('file', input.files[0]);
+  fd.append('upload_preset', UPLOAD_PRESET);
+  fd.append('folder', 'bruiloft2026');
+  fd.append('tags', 'bruiloft2026');
+  try {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (data.secure_url) {
+      addPhoto(data.secure_url, true);
+      status.textContent = 'Foto geüpload!';
+      setTimeout(() => { status.textContent = ''; }, 3000);
+    }
+  } catch(e) {
+    status.textContent = 'Upload mislukt, probeer opnieuw.';
+    setTimeout(() => { status.textContent = ''; }, 3000);
+  }
+  input.value = '';
+}
+
+function addPhoto(url, prepend = false) {
+  if (prepend) {
+    allPhotos.unshift(url);
+  } else {
+    allPhotos.push(url);
+  }
+  renderGrid();
+}
+
+function loadMorePhotos() {
+  visibleCount += PAGE_SIZE;
+  renderGrid();
+}
+
+function renderGrid() {
   const empty = document.getElementById('gallery-empty');
   if (empty) empty.remove();
   const grid = document.getElementById('gallery-grid');
-  const div = document.createElement('div');
-  div.className = 'gallery-item';
-  const img = document.createElement('img');
-  img.src = url.replace('/upload/', '/upload/w_400,h_400,c_fill,q_auto/');
-  img.loading = 'lazy';
-  img.onclick = () => openLightbox(url);
-  div.appendChild(img);
-  grid.insertBefore(div, grid.firstChild);
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  grid.innerHTML = '';
+
+  const visible = allPhotos.slice(0, MAX_GRID);
+  visible.forEach((url, i) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+    const img = document.createElement('img');
+    img.src = url.replace('/upload/', '/upload/w_400,h_400,c_fill,q_60/');
+    img.loading = 'lazy';
+    img.onclick = () => openLightbox(i);
+    div.appendChild(img);
+    grid.appendChild(div);
+  });
+
+  if (allPhotos.length > MAX_GRID) {
+    const more = document.createElement('div');
+    more.className = 'gallery-item';
+    more.style.cssText = 'background:rgba(139,26,74,0.4); display:flex; align-items:center; justify-content:center; cursor:pointer; border-radius:12px;';
+    more.innerHTML = `<span style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.4rem; color:var(--gold);">+${allPhotos.length - MAX_GRID}</span>`;
+    more.onclick = () => openLightbox(MAX_GRID);
+    grid.appendChild(more);
+  }
+
+  if (loadMoreBtn) loadMoreBtn.style.display = 'none';
 }
 
-function openLightbox(url) {
+function renderFullGrid() {
+  const empty = document.getElementById('gallery-empty');
+  if (empty) empty.remove();
+  const grid = document.getElementById('gallery-grid');
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  grid.innerHTML = '';
+
+  const visible = allPhotos.slice(0, visibleCount);
+  visible.forEach((url, i) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+    const img = document.createElement('img');
+    img.src = url.replace('/upload/', '/upload/w_400,h_400,c_fill,q_60/');
+    img.loading = 'lazy';
+    img.onclick = () => openLightbox(i);
+    div.appendChild(img);
+    grid.appendChild(div);
+  });
+
+  if (loadMoreBtn) {
+    if (allPhotos.length > visibleCount) {
+      loadMoreBtn.style.display = 'inline-block';
+      loadMoreBtn.textContent = `Laad meer foto's (${allPhotos.length - visibleCount} resterend)`;
+    } else {
+      loadMoreBtn.style.display = 'none';
+    }
+  }
+}
+
+let currentIndex = 0;
+function openLightbox(index) {
+  currentIndex = index;
   const lb = document.createElement('div');
   lb.className = 'lightbox';
-  lb.innerHTML = `<img src="${url.replace('/upload/', '/upload/w_1200,q_auto/')}" />`;
-  lb.onclick = () => lb.remove();
+  lb.id = 'lightbox';
+  lb.innerHTML = `
+    <button class="lightbox-close" onclick="document.getElementById('lightbox').remove()">Sluiten</button>
+    <button class="lightbox-prev" onclick="navigateLightbox(-1)">‹</button>
+    <img class="lightbox-img" id="lightbox-img" src="${allPhotos[currentIndex].replace('/upload/', '/upload/w_1200,q_auto/')}" alt="Foto van de bruiloft" />
+    <button class="lightbox-next" onclick="navigateLightbox(1)">›</button>
+    <div class="lightbox-counter" id="lightbox-counter">${currentIndex + 1} / ${allPhotos.length}</div>
+  `;
   document.body.appendChild(lb);
+  document.addEventListener('keydown', handleLightboxKey);
+}
+
+function navigateLightbox(dir) {
+  currentIndex = (currentIndex + dir + allPhotos.length) % allPhotos.length;
+  document.getElementById('lightbox-img').src = allPhotos[currentIndex].replace('/upload/', '/upload/w_1200,q_auto/');
+  document.getElementById('lightbox-counter').textContent = `${currentIndex + 1} / ${allPhotos.length}`;
+}
+
+function handleLightboxKey(e) {
+  if (!document.getElementById('lightbox')) { document.removeEventListener('keydown', handleLightboxKey); return; }
+  if (e.key === 'ArrowLeft') navigateLightbox(-1);
+  if (e.key === 'ArrowRight') navigateLightbox(1);
+  if (e.key === 'Escape') { document.getElementById('lightbox').remove(); document.removeEventListener('keydown', handleLightboxKey); }
 }
 
 async function loadGallery() {
   try {
     const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/bruiloft2026.json`, {
-      mode: 'cors',
-      headers: { 'Accept': 'application/json' }
+      mode: 'cors', headers: { 'Accept': 'application/json' }
     });
-    if (!res.ok) {
-      console.log('Gallery response not ok:', res.status);
-      return;
-    }
+    if (!res.ok) return;
     const data = await res.json();
-    console.log('Gallery data:', data);
     if (data.resources && data.resources.length > 0) {
       data.resources
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        .forEach(r => addGalleryItem(`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${r.public_id}`));
+        .forEach(r => allPhotos.push(`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${r.public_id}`));
+      if (window.galleryMode === 'full') {
+        renderFullGrid();
+      } else {
+        renderGrid();
+      }
+      window.dispatchEvent(new Event('photosLoaded'));
     }
   } catch(e) {
-    console.log('Gallery load error:', e);
+    // Fetch mislukt lokaal — werkt wel op de live website
   }
 }
 loadGallery();
@@ -1770,24 +2002,212 @@ loadGallery();
   const switchDate = new Date('2026-06-12T00:00:00');
   const now = new Date();
   if (now >= switchDate) {
-    // Na 12 juni: foto's sectie naar boven (na hero/countdown), RSVP naar beneden
     const fotos = document.getElementById('fotos');
     const rsvp = document.getElementById('rsvp');
+    const waveBeforeRsvp = document.getElementById('wave-before-rsvp');
+    const waveBeforeFotos = document.getElementById('wave-before-fotos');
     const navFotos = document.getElementById('nav-fotos');
     const navRsvp = document.querySelector('a[href="#rsvp"]');
 
     if (fotos && rsvp) {
-      // Verplaats foto's sectie vóór RSVP
-      rsvp.parentNode.insertBefore(fotos, rsvp);
-      // Update nav volgorde
-      if (navFotos && navRsvp) {
-        navFotos.parentNode.insertBefore(navFotos, navRsvp);
+      // Verplaats foto's + bijbehorende wave vóór RSVP
+      if (waveBeforeFotos) rsvp.parentNode.insertBefore(waveBeforeFotos, waveBeforeRsvp || rsvp);
+      rsvp.parentNode.insertBefore(fotos, waveBeforeRsvp || rsvp);
+
+      // Foto's krijgen mauve achtergrond (was wine-deeper)
+      fotos.style.background = 'var(--mauve-light)';
+      fotos.querySelector('.sec-label').className = 'sec-label lbl-gold-dk reveal';
+      fotos.querySelector('h2').className = 'sec-title title-wine reveal';
+
+      // Wave vóór foto's wordt wine-dark → mauve
+      if (waveBeforeFotos) {
+        waveBeforeFotos.innerHTML = `
+          <path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#681338"/>
+          <path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>`;
+      }
+
+      // RSVP vervangen door contactbericht ceremoniemeesters
+      const rsvpInner = rsvp.querySelector('.rsvp-inner');
+      if (rsvpInner) {
+        rsvpInner.innerHTML = `
+          <span class="sec-label lbl-gold-dk reveal">Aanmelden gesloten</span>
+          <h2 class="sec-title title-wine reveal">Toch niet aanwezig?</h2>
+          <div class="gold-rule reveal"><span></span></div>
+          <p class="rsvp-prose reveal">
+            De aanmeldingstermijn is helaas verlopen.<br>
+            Kun je er toch niet bij zijn? Neem dan contact op met onze ceremoniemeesters.
+          </p>
+          <div class="reveal" style="margin-top:1.5rem;">
+            <p style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.15rem; color:var(--wine); margin-bottom:0.3rem;">Annerie & Eva</p>
+            <a href="mailto:placeholder@email.nl" style="font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--wine-dark); text-decoration:none; border-bottom:1px solid rgba(139,26,74,0.3); padding-bottom:2px;">placeholder@email.nl</a>
+          </div>`;
+      }
+
+      // Wave vóór RSVP wordt mauve → wine-deeper
+      if (waveBeforeRsvp) {
+        waveBeforeRsvp.innerHTML = `
+          <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#e2d0de"/>
+          <path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#4d0e2a"/>`;
+      }
+
+      // Nav: verwijder RSVP link
+      if (navRsvp) navRsvp.remove();
+      // Nav volgorde aanpassen
+      const navProgramma = document.querySelector('a[href="#programma"]');
+      if (navFotos && navProgramma) {
+        navFotos.parentNode.insertBefore(navFotos, navProgramma);
       }
     }
   }
 })();
 
-// ── SCROLL REVEAL ──
+// ── NA DE BRUILOFT (20 juni 2026) ──
+const weddingOver = new Date() >= new Date('2026-06-20T00:00:00');
+if (weddingOver) {
+  // Grid instelling: toon volledige paginated galerij
+  window.galleryMode = 'full';
+
+  // Verberg countdown
+  const countdown = document.getElementById('countdown');
+  if (countdown) countdown.style.display = 'none';
+  document.querySelectorAll('.wave-sep').forEach((w, i) => {
+    // Verberg de wave vóór countdown ook
+    if (countdown && w.nextElementSibling === countdown) w.style.display = 'none';
+  });
+
+  // Verberg alle niet-relevante secties
+  ['rsvp','programma','locaties','ceremoniemeesters','overnachting','reizen'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+
+  // Verberg alle wave-separators behalve die rond hero/bedankje/fotos
+  document.querySelectorAll('.wave-sep').forEach(w => {
+    if (!w.id || !['wave-before-rsvp','wave-before-fotos'].includes(w.id)) {
+      w.style.display = 'none';
+    }
+  });
+
+  // Pas hero tekst aan
+  const heroScript = document.querySelector('.hero-script');
+  if (heroScript) heroScript.textContent = 'zijn getrouwd!';
+
+  // Verberg nav
+  const nav = document.querySelector('nav');
+  if (nav) nav.style.display = 'none';
+
+  // Voeg bedankje sectie toe na hero
+  const hero = document.getElementById('welkom');
+  if (hero) {
+    const waveBedankje = document.createElement('svg');
+    waveBedankje.setAttribute('class', 'wave-sep');
+    waveBedankje.setAttribute('viewBox', '0 0 1440 72');
+    waveBedankje.setAttribute('preserveAspectRatio', 'none');
+    waveBedankje.innerHTML = `<path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#C9A8C0"/><path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#681338"/>`;
+    hero.after(waveBedankje);
+
+    const bedankje = document.createElement('section');
+    bedankje.style.cssText = 'background:#681338; padding:4rem 1.5rem; text-align:center;';
+    bedankje.innerHTML = `
+      <div style="max-width:560px; margin:0 auto;">
+        <span style="font-family:'Jost',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:1.2rem;">Met liefde</span>
+        <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.3rem,3vw,1.8rem); color:var(--mauve-light); line-height:1.8;">
+          "Super tof dat je erbij was! Het is voorbij gevlogen,<br>maar gelukkig hebben we de foto's nog!"
+        </p>
+        <p style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.2rem; color:var(--gold); margin-top:1.5rem;">— Thom & Louelle</p>
+      </div>`;
+    waveBedankje.after(bedankje);
+
+    const waveTrouw = document.createElement('svg');
+    waveTrouw.setAttribute('class', 'wave-sep');
+    waveTrouw.setAttribute('viewBox', '0 0 1440 72');
+    waveTrouw.setAttribute('preserveAspectRatio', 'none');
+    waveTrouw.innerHTML = `<path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#681338"/><path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>`;
+    bedankje.after(waveTrouw);
+  }
+
+  // Gebruik volledige galerij rendering
+  window.addEventListener('photosLoaded', () => renderFullGrid());
+}
+// ── EASTER EGG WEER ──
+async function fetchWeather() {
+  const target = new Date('2026-06-19');
+  const now = new Date();
+  const daysUntil = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+
+  const widget = document.getElementById('weather-widget');
+  const content = document.getElementById('weather-content');
+
+  if (daysUntil > 14) {
+    // Te vroeg voor echte data — toon grappige placeholder
+    content.innerHTML = `
+      <div style="font-size:2.5rem; margin-bottom:0.5rem;">☀️</div>
+      <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.1rem; color:var(--mauve-light); margin-bottom:0.4rem;">Stralend weer</div>
+      <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.9rem; color:var(--mauve-mid); line-height:1.6;">Want anders had je toch gedacht?</div>
+      <div style="margin-top:0.75rem; font-family:'Jost',sans-serif; font-size:10px; color:var(--mauve-dark); letter-spacing:0.1em;">26°C · 0% kans op regen · ♾️ kans op geluk</div>
+      <div style="margin-top:0.5rem; font-family:'Jost',sans-serif; font-size:9px; color:var(--mauve-dark); opacity:0.6; letter-spacing:0.05em;">Echte voorspelling beschikbaar over ${daysUntil - 14} dagen</div>`;
+    return;
+  }
+
+  // Probeer echte weersdata op te halen via Open-Meteo
+  try {
+    const dateStr = '2026-06-19';
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=51.9833&longitude=5.8500&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FAmsterdam&start_date=${dateStr}&end_date=${dateStr}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.daily && data.daily.temperature_2m_max) {
+      const code = data.daily.weathercode[0];
+      const maxTemp = Math.round(data.daily.temperature_2m_max[0]);
+      const minTemp = Math.round(data.daily.temperature_2m_min[0]);
+      const rain = data.daily.precipitation_probability_max[0];
+
+      const weatherInfo = getWeatherInfo(code);
+      content.innerHTML = `
+        <div style="font-size:2.5rem; margin-bottom:0.5rem;">${weatherInfo.icon}</div>
+        <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.1rem; color:var(--mauve-light); margin-bottom:0.4rem;">${weatherInfo.label}</div>
+        <div style="margin-top:0.5rem; font-family:'Jost',sans-serif; font-size:10px; color:var(--mauve-dark); letter-spacing:0.1em;">${maxTemp}°C max · ${minTemp}°C min · ${rain}% kans op regen</div>
+        <div style="margin-top:0.4rem; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.85rem; color:var(--mauve-mid);">${weatherInfo.comment}</div>`;
+    }
+  } catch(e) {
+    // Stille fallback naar placeholder
+    content.innerHTML = `
+      <div style="font-size:2.5rem; margin-bottom:0.5rem;">☀️</div>
+      <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.1rem; color:var(--mauve-light); margin-bottom:0.4rem;">Stralend weer</div>
+      <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.9rem; color:var(--mauve-mid); line-height:1.6;">Want anders had je toch gedacht?</div>
+      <div style="margin-top:0.75rem; font-family:'Jost',sans-serif; font-size:10px; color:var(--mauve-dark); letter-spacing:0.1em;">26°C · 0% kans op regen · ♾️ kans op geluk</div>`;
+  }
+}
+
+function getWeatherInfo(code) {
+  if (code === 0) return { icon: '☀️', label: 'Stralend weer', comment: 'Perfecte trouwdag!' };
+  if (code <= 2) return { icon: '🌤️', label: 'Licht bewolkt', comment: 'Mooi zacht licht voor de foto\'s!' };
+  if (code <= 3) return { icon: '⛅', label: 'Bewolkt', comment: 'Geen regen, prima trouwweer!' };
+  if (code <= 49) return { icon: '🌫️', label: 'Mistig', comment: 'Mysterieus en romantisch!' };
+  if (code <= 59) return { icon: '🌦️', label: 'Lichte motregen', comment: 'Geluk bij een bruiloft!' };
+  if (code <= 69) return { icon: '🌧️', label: 'Regen', comment: 'Regen brengt geluk — en paraplu\'s!' };
+  if (code <= 79) return { icon: '🌨️', label: 'Sneeuw', comment: 'In juni?! Dat is wel heel bijzonder!' };
+  if (code <= 82) return { icon: '🌦️', label: 'Regenbuien', comment: 'Regen brengt geluk!' };
+  if (code <= 99) return { icon: '⛈️', label: 'Onweer', comment: 'Dramatisch en onvergetelijk!' };
+  return { icon: '🌈', label: 'Wisselvallig', comment: 'Verrassing!' };
+}
+
+function toggleWeather() {
+  const widget = document.getElementById('weather-widget');
+  const year = document.getElementById('easter-year');
+  const isVisible = widget.style.display !== 'none';
+  if (isVisible) {
+    widget.style.opacity = '0';
+    setTimeout(() => { widget.style.display = 'none'; }, 400);
+    year.style.borderColor = 'transparent';
+  } else {
+    widget.style.display = 'block';
+    setTimeout(() => { widget.style.opacity = '1'; }, 10);
+    year.style.borderColor = 'rgba(201,168,76,0.4)';
+    fetchWeather();
+  }
+}
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -1799,5 +2219,7 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" defer></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" defer></script>
 </body>
 </html>
