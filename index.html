@@ -2094,24 +2094,29 @@ function openGalleryOverlay() {
     img.loading = 'lazy';
     img.alt = `Foto ${i + 1}`;
     item.appendChild(img);
-    item.onclick = () => {
-      document.getElementById('gallery-overlay').remove();
-      openLightbox(i);
-    };
     grid.appendChild(item);
   });
 
   ov.innerHTML = header;
   ov.appendChild(grid);
   document.body.appendChild(ov);
+  document.body.style.overflow = 'hidden';
 
-  // Sluit met Escape
-  const escHandler = (e) => {
-    if (e.key === 'Escape') {
-      const el = document.getElementById('gallery-overlay');
-      if (el) { el.remove(); document.removeEventListener('keydown', escHandler); }
-    }
+  const closeOverlay = () => {
+    const el = document.getElementById('gallery-overlay');
+    if (el) { el.remove(); document.body.style.overflow = ''; }
+    document.removeEventListener('keydown', escHandler);
   };
+
+  // Vervang sluitknop met versie die ook body-scroll herstelt
+  ov.querySelector('.gallery-overlay-close').onclick = closeOverlay;
+
+  // Sluit ook elk foto-klik via closeOverlay
+  ov.querySelectorAll('.gallery-overlay-item').forEach((item, i) => {
+    item.onclick = () => { closeOverlay(); openLightbox(i); };
+  });
+
+  const escHandler = (e) => { if (e.key === 'Escape') closeOverlay(); };
   document.addEventListener('keydown', escHandler);
 }
 
