@@ -663,9 +663,9 @@ nav a:hover { color: var(--gold); }
   align-items: center;
   justify-content: center;
   margin: 0 auto 1rem;
-  font-size: 24px;
   color: var(--gold);
 }
+.travel-icon ph-icon { display: flex; }
 .travel-title {
   font-family: 'DM Serif Display', serif;
   font-style: italic;
@@ -869,11 +869,11 @@ nav a:hover { color: var(--gold); }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 .footer-photo {
-  width: 90px;
-  height: 90px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--gold);
@@ -881,14 +881,18 @@ nav a:hover { color: var(--gold); }
   flex-shrink: 0;
 }
 .footer-photo img { width: 100%; height: 100%; object-fit: cover; }
-.footer-text { text-align: left; }
+.footer-text {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
 
 .footer-names {
   font-family: 'DM Serif Display', serif;
   font-style: italic;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: var(--mauve-light);
-  margin-bottom: 0.5rem;
 }
 .footer-date {
   font-family: 'Jost', sans-serif;
@@ -1234,6 +1238,7 @@ footer {
   <a href="#programma">Programma</a>
   <a href="#locaties">Locaties</a>
   <a href="#ceremoniemeesters">Psst...</a>
+  <a href="#cadeaus">Cadeaus</a>
   <a href="#overnachting">Overnachting</a>
   <a href="#reizen">Reizen</a>
   <a href="#fotos" id="nav-fotos">Foto's</a>
@@ -1322,9 +1327,9 @@ footer {
       Meld je aan via onderstaande knop.<br>
       <span style="font-size:0.9em; opacity:0.8;">Vergeet niet je dieetwens en/of allergieën door te geven.</span>
     </p>
-    <span class="rsvp-deadline reveal">Aanmelden vóór zondag 17 mei 2026</span>
+    <span class="rsvp-deadline reveal">Aanmelden vóór vrijdag 15 mei 2026</span>
     <div class="reveal">
-      <a class="rsvp-btn" href="#" target="_blank">Aanmelden</a>
+      <a class="rsvp-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeN2azG_SwaoCdsf4Z5A5Rh-ec4AM-NrKiZlJa7BE9OhAHeCQ/viewform?usp=header" target="_blank" data-role-href="dag:https://docs.google.com/forms/d/e/1FAIpQLSeN2azG_SwaoCdsf4Z5A5Rh-ec4AM-NrKiZlJa7BE9OhAHeCQ/viewform?usp=header|avond:https://docs.google.com/forms/d/e/1FAIpQLSfL3b7y3WPNqjr5HDZbIXgIUR0olbsU6YxOIJ5InfA-oJPKcQ/viewform?usp=header">Aanmelden</a>
     </div>
   </div>
 </section>
@@ -1485,19 +1490,39 @@ footer {
           <span id="secret-btn-text">Klik om te openen</span>
         </button>
         <div class="secret-content" id="secret-content">
-          <p>[Bericht van de ceremoniemeesters — nog in te vullen]</p>
+          <div id="geheim-content"><p style="font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--mauve-mid); opacity:0.6;">Laden...</p></div>
         </div>
       </div>
       <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(139,26,74,0.15);">
         <p style="font-family:'Jost',sans-serif; font-size:10px; font-weight:500; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold-dark); margin-bottom:0.75rem;">Vragen? Neem contact op met</p>
         <p style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.15rem; color:var(--wine); margin-bottom:0.3rem;">Annerie & Eva</p>
-        <a href="mailto:placeholder@email.nl" style="font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--wine-dark); text-decoration:none; border-bottom:1px solid rgba(139,26,74,0.3); padding-bottom:2px;">placeholder@email.nl</a>
+        <a href="mailto:thomenlou.trouwen@gmail.com" style="font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--wine-dark); text-decoration:none; border-bottom:1px solid rgba(139,26,74,0.3); padding-bottom:2px;">thomenlou.trouwen@gmail.com</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Wave: mauve → wine-dark -->
+<!-- ═══════════════════════════════ CADEAUS ═══════════════════════════════ -->
+<!-- Wave: wine-dark → mauve (cadeaus) -->
+<svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,72 L0,28 Q180,0 360,28 Q540,56 720,24 Q900,0 1080,30 Q1260,58 1440,20 L1440,72 Z" fill="#681338"/>
+  <path d="M0,72 L0,40 Q200,10 440,38 Q640,60 880,32 Q1100,8 1440,42 L1440,72 Z" fill="#e2d0de"/>
+</svg>
+
+<section class="sec-ceremoniemeesters" id="cadeaus">
+  <div class="sec-inner">
+    <div class="reveal" style="max-width: 560px; margin: 0 auto; text-align: center;">
+      <span class="sec-label lbl-gold-dk">Huwelijksreis</span>
+      <h2 class="sec-title title-wine">Cadeaus</h2>
+      <div class="gold-rule"><span></span></div>
+      <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.15rem; color:var(--wine-dark); line-height:1.85;">
+        Tussen de verfblikken en kale muren door dromen wij al van het grote avontuur dat komen gaat. Willen jullie ons toch iets geven? Sla de cadeautafel over en help ons op weg naar Nieuw-Zeeland — een bijdrage aan onze huwelijksreis zouden wij heel leuk vinden.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: mauve → wine-dark (overnachting) -->
 <svg class="wave-sep" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M0,0 L0,44 Q200,72 440,44 Q640,18 880,48 Q1100,72 1440,36 L1440,0 Z" fill="#e2d0de"/>
   <path d="M0,0 L0,32 Q180,62 400,36 Q620,12 860,42 Q1060,66 1440,28 L1440,0 Z" fill="#681338"/>
@@ -1584,7 +1609,7 @@ footer {
     <div class="travel-grid reveal">
 
       <div class="travel-card">
-        <div class="travel-icon"><svg class="ph-icon" style="font-size:24px;" viewBox="0 0 256 256"><path d="M208,32H48A16,16,0,0,0,32,48V176a16,16,0,0,0,16,16H84.69l-18.35,18.34a8,8,0,0,0,11.32,11.32L104,205.31V224a8,8,0,0,0,16,0V205.31l26.34,16.35a8,8,0,0,0,11.32-11.32L139.31,192H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM48,48H208V88H48Zm0,128V104H208v72ZM104,136a8,8,0,1,1-8-8A8,8,0,0,1,104,136Zm64,0a8,8,0,1,1-8-8A8,8,0,0,1,168,136Z"/></svg></div>
+        <div class="travel-icon"><ph-icon name="train" size="26" color="currentColor"></ph-icon></div>
         <div class="travel-title">Met de trein</div>
         <div class="travel-text">
           Reis naar station Arnhem Centraal, daarna verder met bus, OV-fiets of taxi naar Oosterbeek.
@@ -1592,7 +1617,7 @@ footer {
       </div>
 
       <div class="travel-card">
-        <div class="travel-icon"><svg class="ph-icon" style="font-size:24px;" viewBox="0 0 256 256"><path d="M184,24H72A24,24,0,0,0,48,48V208a8,8,0,0,0,8,8H72a8,8,0,0,0,8-8V192h96v16a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8V48A24,24,0,0,0,184,24ZM72,40H184a8,8,0,0,1,8,8V96H64V48A8,8,0,0,1,72,40ZM64,176V112H192v64ZM80,152a8,8,0,1,1,8,8A8,8,0,0,1,80,152Zm80,0a8,8,0,1,1,8,8A8,8,0,0,1,160,152Z"/></svg></div>
+        <div class="travel-icon"><ph-icon name="bus" size="26" color="currentColor"></ph-icon></div>
         <div class="travel-title">Met de bus</div>
         <div class="travel-text">
           Lijn 51 of 352 vanaf Arnhem Centraal richting Wageningen. Stap uit bij halte <strong style="color:var(--cream);">Oosterbeek, Van Borsselenweg</strong> (lijn 51, elke 30 min) of <strong style="color:var(--cream);">Oosterbeek, Raadhuisplein</strong> (lijn 352, elke 20 min, ±5 min lopen naar de tuin).
@@ -1600,7 +1625,7 @@ footer {
       </div>
 
       <div class="travel-card">
-        <div class="travel-icon"><svg class="ph-icon" style="font-size:24px;" viewBox="0 0 256 256"><path d="M208,112a47.81,47.81,0,0,0-16.93,3.09L168,72h16a8,8,0,0,0,0-16H152a8,8,0,0,0-7.35,11.12L152,84.75l-8.73,15.31L112,64H120a8,8,0,0,0,0-16H72a8,8,0,0,0,0,16h18.91L73.5,96H48a8,8,0,0,0,0,16H66.51L48.93,140.06A48,48,0,1,0,72,160a47.54,47.54,0,0,0-3.09-16.93L89.6,112h26.22l-9.46,16.59A48,48,0,1,0,208,112ZM72,192a32,32,0,1,1-21.91-30.34L37.1,184a8,8,0,0,0,6.9,12h28A32.05,32.05,0,0,1,72,192Zm-14.9-12,10.44-18.31A31.88,31.88,0,0,1,80,180ZM108.4,112l22.85,40H97.21Zm99.6,80a32,32,0,0,1-28.28-47H192a8,8,0,0,0,0-16H168.28a32,32,0,1,1,39.72,63Z"/></svg></div>
+        <div class="travel-icon"><ph-icon name="bicycle" size="26" color="currentColor"></ph-icon></div>
         <div class="travel-title">OV-fiets</div>
         <div class="travel-text">
           Huur een OV-fiets op station Arnhem Centraal. Oosterbeek is circa 8 km fietsen langs de Rijn.
@@ -1608,7 +1633,7 @@ footer {
       </div>
 
       <div class="travel-card">
-        <div class="travel-icon"><svg class="ph-icon" style="font-size:24px;" viewBox="0 0 256 256"><path d="M240,104H229.2L201.42,49.5A16,16,0,0,0,187.2,40H68.8a16,16,0,0,0-14.22,9.5L26.8,104H16a8,8,0,0,0,0,16h8v80a16,16,0,0,0,16,16H64a16,16,0,0,0,16-16V184h96v16a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16V120h8a8,8,0,0,0,0-16ZM68.8,56H187.2l22.4,48H46.4ZM64,200H40V184H64Zm128,0V184h24v16ZM40,168V120H216v48Z M80,148a12,12,0,1,1,12,12A12,12,0,0,1,80,148Zm72,0a12,12,0,1,1,12,12A12,12,0,0,1,152,148Z"/></svg></div>
+        <div class="travel-icon"><ph-icon name="car" size="26" color="currentColor"></ph-icon></div>
         <div class="travel-title">Carpoolen</div>
         <div class="travel-text">
           Wij adviseren om zoveel mogelijk samen te rijden. De locaties liggen in een rustige natuuromgeving met beperkte parkeerruimte.
@@ -1616,7 +1641,7 @@ footer {
       </div>
 
       <div class="travel-card">
-        <div class="travel-icon"><svg class="ph-icon" style="font-size:24px;" viewBox="0 0 256 256"><path d="M240,104H222.59L198.23,49.5A16,16,0,0,0,184,40H152V24a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8V40H72a16,16,0,0,0-14.23,9.5L33.41,104H16a8,8,0,0,0,0,16h8v80a16,16,0,0,0,16,16H56a16,16,0,0,0,16-16V184h112v16a16,16,0,0,0,16,16h16a16,16,0,0,0,16-16V120h8a8,8,0,0,0,0-16ZM120,32h16V40H120ZM72,56H184l20.57,48H51.43ZM56,200H40V184H56Zm144,0V184h16v16ZM40,168V120H216v48ZM80,148a12,12,0,1,1,12,12A12,12,0,0,1,80,148Zm72,0a12,12,0,1,1,12,12A12,12,0,0,1,152,148Z"/></svg></div>
+        <div class="travel-icon"><ph-icon name="taxi" size="26" color="currentColor"></ph-icon></div>
         <div class="travel-title">Taxi</div>
         <div class="travel-text">
           Een taxi vanaf Arnhem Centraal naar Oosterbeek is circa 10–15 minuten.
@@ -1647,7 +1672,7 @@ footer {
           <div class="travel-text" style="text-align:left;">
             De parkeerplaatsen bij Tuin de Lage Oorsprong kunnen bij aankomst al bezet zijn door eerder gearriveerde gasten en wandelaars uit de buurt.<br><br>
             <strong style="color:var(--cream);">Kom je naar de kerkdienst?</strong> Ons advies: parkeer bij Klein Hartenstein en loop naar de tuin — dat is circa 1,4 km (±18 minuten). Na de kerkdienst loop je toch al terug naar Klein Hartenstein voor het feest, dus dat komt mooi uit! Let op: de kleine parkeerplaats in het bos (noord van de tuin) moet na de kerkdienst leeg zijn. Rij daarna door naar Klein Hartenstein.<br><br>
-            <strong style="color:var(--cream);">Kom je direct naar het feest?</strong> Dan kun je gewoon parkeren bij Klein Hartenstein.<br><br>
+            <strong style="color:var(--cream);">Kom je direct naar het feest?</strong> Bij Klein Hartenstein is voldoende parkeergelegenheid beschikbaar — je kunt gewoon parkeren op het terrein.<br><br>
             Wij adviseren om zoveel mogelijk samen te rijden — zo houd je de drukte beperkt!
           </div>
         </div>
@@ -1672,7 +1697,7 @@ footer {
 
     <div class="reveal" style="text-align:center; margin-bottom:2.5rem;">
       <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:var(--mauve-light); line-height:1.8; margin-bottom:1.75rem;">
-        Outfit check ✓ Confetti in je haar ✓ Foto maken en hier delen!<br>Wij zijn benieuwd naar jouw dag — van de voordeur tot de dansvloer.
+        Outfit check ✓ Confetti in je haar ✓ Foto maken en hier delen!<br>Wij zijn benieuwd naar jouw dag — van de voordeur tot de dansvloer.<br><span style="font-size:0.85em; opacity:0.7;">Foto's zijn alleen zichtbaar voor ingelogde gasten op deze website.</span>
       </p>
       <div class="upload-btns">
         <button class="upload-btn" id="upload-btn" onclick="openUploadWidget()">
@@ -1708,6 +1733,9 @@ footer {
     <div class="footer-text">
       <div class="footer-names">Thom &amp; Louelle</div>
       <div class="footer-date">19 · 06 · <span id="easter-year" onclick="toggleWeather()" style="cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s;" title="">2026</span> · Oosterbeek</div>
+      <div style="margin-top:0.75rem; font-family:'Jost',sans-serif; font-size:10px; font-weight:300; color:var(--mauve-mid); opacity:0.7;">
+        Vragen? <a href="mailto:thomenlou.trouwen@gmail.com" style="color:var(--gold); opacity:0.7; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.3);">Annerie &amp; Eva</a>
+      </div>
     </div>
   </div>
   <div id="weather-widget" style="display:none; margin-top:1.5rem; opacity:0; transition:opacity 0.4s;">
@@ -1871,6 +1899,13 @@ function applyRole(role) {
       el.style.display = 'none';
     }
   });
+  // Pas RSVP link aan op basis van rol
+  const rsvpBtn = document.querySelector('[data-role-href]');
+  if (rsvpBtn) {
+    const dag = 'https://docs.google.com/forms/d/e/1FAIpQLSeN2azG_SwaoCdsf4Z5A5Rh-ec4AM-NrKiZlJa7BE9OhAHeCQ/viewform?usp=header';
+    const avond = 'https://docs.google.com/forms/d/e/1FAIpQLSfL3b7y3WPNqjr5HDZbIXgIUR0olbsU6YxOIJ5InfA-oJPKcQ/viewform?usp=header';
+    rsvpBtn.href = role === 'dag' ? dag : avond;
+  }
 }
 
 document.getElementById('pw-input').addEventListener('keydown', function(e) {
@@ -2223,6 +2258,35 @@ async function loadGallery() {
     // Fetch mislukt lokaal — werkt wel op de live website
   }
 }
+// ── GEHEIM BERICHT LADEN ──
+async function loadGeheim() {
+  try {
+    const res = await fetch('geheim.txt');
+    if (!res.ok) return;
+    const text = await res.text();
+    // Simpele opmaak: lege regel = <p>, - = bullet, **tekst** = vet, *tekst* = cursief
+    const html = text
+      .split(/\n{2,}/)
+      .map(block => {
+        const lines = block.trim().split('\n').map(line => {
+          if (line.startsWith('- ')) return '<li>' + line.slice(2) + '</li>';
+          return line;
+        });
+        const joined = lines.join('\n');
+        if (joined.includes('<li>')) return '<ul>' + joined + '</ul>';
+        return '<p>' + joined + '</p>';
+      })
+      .join('')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>');
+    const el = document.getElementById('geheim-content');
+    if (el) el.innerHTML = html;
+  } catch(e) {
+    // Bestand nog niet aanwezig — stille fallback
+  }
+}
+loadGeheim();
+
 loadGallery();
 
 // ── DATUM-GEBASEERDE VOLGORDE ──
@@ -2289,7 +2353,7 @@ loadGallery();
           </p>
           <div class="reveal" style="margin-top:1.5rem;">
             <p style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.15rem; color:var(--wine); margin-bottom:0.3rem;">Annerie & Eva</p>
-            <a href="mailto:placeholder@email.nl" style="font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--wine-dark); text-decoration:none; border-bottom:1px solid rgba(139,26,74,0.3); padding-bottom:2px;">placeholder@email.nl</a>
+            <a href="mailto:thomenlou.trouwen@gmail.com" style="font-family:'Jost',sans-serif; font-size:12px; font-weight:300; color:var(--wine-dark); text-decoration:none; border-bottom:1px solid rgba(139,26,74,0.3); padding-bottom:2px;">thomenlou.trouwen@gmail.com</a>
           </div>`;
       }
 
@@ -2533,5 +2597,6 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 <script src="https://upload-widget.cloudinary.com/global/all.js" defer></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
 </body>
 </html>
