@@ -2285,6 +2285,7 @@ async function loadGeheim() {
     let buffer = [];
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
+      if (line.trimStart().startsWith('#')) continue; // commentaarregel — overslaan
       if (line.trim() === '') {
         // Lege regel: sluit huidige alinea
         if (buffer.length > 0) {
