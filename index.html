@@ -969,7 +969,7 @@ nav a:hover { color: var(--gold); }
   text-align: left;
 }
 .secret-content.open {
-  max-height: 600px;
+  max-height: 2000px;
   padding: 0 2rem 2rem;
 }
 
@@ -2032,6 +2032,12 @@ function toggleSecret() {
   content.classList.toggle('open');
   lock.classList.toggle('open');
   btnText.textContent = isOpen ? 'Klik om te openen' : 'Klik om te sluiten';
+  // Gebruik werkelijke hoogte zodat lange berichten nooit worden afgeknipt
+  if (!isOpen) {
+    content.style.maxHeight = content.scrollHeight + 'px';
+  } else {
+    content.style.maxHeight = '0';
+  }
 }
 
 // ── CLOUDINARY FOTO'S ──
