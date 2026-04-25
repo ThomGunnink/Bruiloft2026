@@ -1006,54 +1006,7 @@ nav a:hover { color: var(--gold); }
 }
 #scroll-top-btn:hover { color: rgba(201,168,76,0.9); border-color: rgba(201,168,76,0.6); background: rgba(201,168,76,0.08); }
 
-/* ── DEV SWITCHER ── */
-.dev-switcher {
-  position: fixed !important;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 99997;
-}
-.dev-btn {
-  background: none;
-  border: 1px solid transparent;
-  color: transparent;
-  font-family: 'Jost', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  padding: 4px 8px;
-  cursor: pointer;
-  transition: all 0.3s;
-  border-radius: 2px;
-  display: block;
-  margin-left: auto;
-}
-.dev-switcher:hover .dev-btn { color: rgba(201,168,76,0.3); border-color: rgba(201,168,76,0.2); }
-.dev-btn:hover { color: rgba(201,168,76,0.9) !important; border-color: rgba(201,168,76,0.6) !important; background: rgba(201,168,76,0.08); }
-.dev-menu {
-  background: #4d0e2a;
-  border: 1px solid rgba(201,168,76,0.3);
-  padding: 0.4rem;
-  display: none;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 140px;
-  margin-bottom: 4px;
-}
-.dev-menu.open { display: flex; }
-.dev-menu button {
-  background: none;
-  border: none;
-  color: #e2d0de;
-  font-family: 'Jost', sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  padding: 6px 8px;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.15s;
-  border-radius: 0;
-}
-.dev-menu button:hover { background: rgba(201,168,76,0.1); color: #C9A84C; }
+
 
 /* ── HOVER STATES TIJDLIJN ── */
 .tl-item {
@@ -1803,29 +1756,7 @@ footer {
 </div>
 
 <script>
-// ── DEV DATUM OVERRIDE ──
-const _devDate = sessionStorage.getItem('devDate');
-if (_devDate) {
-  const _realDate = Date;
-  Date = class extends _realDate {
-    constructor(...a) {
-      if (!a.length) super(_devDate);
-      else super(...a);
-    }
-    static now() { return new _realDate(_devDate).getTime(); }
-  };
-}
-// ── DEV SWITCHER ──
-function devSwitch(role) {
-  document.getElementById('dev-menu').classList.remove('open');
-  if (role === 'reset') {
-    sessionStorage.clear();
-  } else {
-    sessionStorage.setItem('auth', role);
-  }
-  sessionStorage.setItem('scrolltop', '1');
-  location.reload();
-}
+
 
 function devDate(date) {
   document.getElementById('dev-menu').classList.remove('open');
@@ -2299,7 +2230,9 @@ async function loadGallery() {
 // ── GEHEIM BERICHT LADEN ──
 async function loadGeheim() {
   try {
-    const res = await fetch('geheim.txt');
+    const role = sessionStorage.getItem('auth') || 'dag';
+    const filename = role === 'avond' ? 'geheim-avondgast.txt' : 'geheim-daggast.txt';
+    const res = await fetch(filename);
     if (!res.ok) return;
     const text = await res.text();
     // Verwerk regels: lege regel = alinea-break, extra lege regel = extra witruimte
