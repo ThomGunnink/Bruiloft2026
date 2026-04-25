@@ -2428,19 +2428,21 @@ loadGallery();
       }
 
       // Nav: verwijder RSVP link, herstel volgorde naar paginavolgorde
-      // Paginavolgorde na 12 juni: Programma · Locaties · Reizen · Foto's · Overnachting · Psst...
       if (navRsvp) navRsvp.remove();
       const nav = document.querySelector('nav');
-      if (nav && navFotos) {
-        const navReizen = document.querySelector('a[href="#reizen"]');
-        const navOvernachting = document.querySelector('a[href="#overnachting"]');
-        const navPsst = document.querySelector('a[href="#ceremoniemeesters"]');
-        // Zet Foto's direct na Reizen
-        if (navReizen) navReizen.after(navFotos);
-        // Zet Overnachting na Foto's
-        if (navFotos && navOvernachting) navFotos.after(navOvernachting);
-        // Zet Psst... na Overnachting
-        if (navOvernachting && navPsst) navOvernachting.after(navPsst);
+      if (nav) {
+        // Gewenste volgorde na 12 juni (RSVP verwijderd):
+        // Programma · Locaties · Psst... · Cadeaus · Overnachting · Reizen · Parkeren · Foto's
+        const order = ['#programma','#locaties','#ceremoniemeesters','#cadeaus','#overnachting','#reizen'];
+        const navParkeren = [...nav.querySelectorAll('a')].find(a => a.textContent.trim() === 'Parkeren');
+        const navFotosEl = document.getElementById('nav-fotos');
+        // Herorden op basis van gewenste volgorde
+        order.forEach(href => {
+          const el = nav.querySelector(`a[href="${href}"]`);
+          if (el) nav.appendChild(el);
+        });
+        if (navParkeren) nav.appendChild(navParkeren);
+        if (navFotosEl) nav.appendChild(navFotosEl);
       }
     }
   }
@@ -2461,7 +2463,7 @@ if (weddingOver) {
   });
 
   // Verberg alle niet-relevante secties + hun waves
-  ['rsvp','programma','locaties','ceremoniemeesters','overnachting','reizen'].forEach(id => {
+  ['rsvp','programma','locaties','ceremoniemeesters','cadeaus','overnachting','reizen'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.style.display = 'none';
