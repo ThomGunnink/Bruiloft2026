@@ -1243,6 +1243,47 @@ footer {
   <button class="dev-btn" onclick="document.getElementById('dev-menu').classList.toggle('open')">dev</button>
 </div>
 
+<!-- ═══════════════ FOTO-UPLOAD SCHERM ═══════════════ -->
+<div id="fotos-screen" style="display:none; position:fixed; inset:0; z-index:9999; background:#e2d0de; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; overflow:hidden;">
+  <div style="position:absolute; inset:0; pointer-events:none; z-index:0;">
+    <svg id="fotosblobsvg" viewBox="0 0 340 560" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; opacity:0; animation:blobFade 1.2s ease 0.2s forwards; position:absolute; top:0; left:0;">
+      <path d="M38,20 C18,80 18,140 38,200 C18,260 18,320 38,380 C18,440 18,500 38,540" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
+      <path d="M302,20 C322,80 322,140 302,200 C322,260 322,320 302,380 C322,440 322,500 302,540" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
+      <path id="fotosblobpath" fill="#8B1A4A"/>
+    </svg>
+  </div>
+  <div style="position:relative; z-index:1; width:min(520px,90vw); opacity:0; animation:riseIn 0.9s ease 0.9s forwards;">
+    <div>
+      <span class="hero-name">Thom</span>
+      <span class="hero-amp">&</span>
+      <span class="hero-name">Louelle</span>
+    </div>
+    <div class="hero-divider" style="opacity:1; animation:none; margin:1.8rem 0 1.4rem;">
+      <div class="hero-gem"></div>
+    </div>
+    <span class="hero-date" style="opacity:1; animation:none;">19 juni 2026</span>
+    <span class="hero-location" style="opacity:1; animation:none;">Oosterbeek</span>
+    <div style="margin-top:2.5rem;">
+      <span style="font-family:'Jost',sans-serif; font-size:10px; font-weight:500; letter-spacing:0.35em; text-transform:uppercase; color:var(--gold); opacity:0.85; display:block; margin-bottom:0.6rem;">Foto's delen</span>
+      <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(1.5rem,5vw,2.1rem); color:#4d0e2a; margin-bottom:0.6rem; line-height:1.2;">Foto's</div>
+      <p style="font-size:13px; font-weight:300; color:var(--mauve-dark); line-height:1.75; margin-bottom:1.75rem; letter-spacing:0.03em;">
+        Outfit check ✓ &nbsp;Confetti in je haar ✓<br>
+        Deel jouw mooiste moment van de dag!
+      </p>
+      <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+        <button class="upload-btn" onclick="openUploadWidget()">
+          <i class="ph ph-images"></i> Foto's uploaden
+        </button>
+        <label class="upload-btn" style="background:rgba(77,14,42,0.08); color:#4d0e2a; border:1px solid rgba(201,168,76,0.4); cursor:pointer;">
+          <i class="ph ph-camera"></i> Camera
+          <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="uploadCameraPhoto(this)"/>
+        </label>
+      </div>
+      <p id="upload-status-fotos" style="font-size:12px; color:var(--wine); min-height:1.5em; margin-top:1rem; letter-spacing:0.05em;"></p>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════ WACHTWOORDSCHERM ═══════════════ -->
 <div id="password-screen" style="position:fixed; inset:0; z-index:9999; background:var(--mauve-light); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; overflow:hidden; touch-action:none;">
   <div id="password-screen-bg">
@@ -1364,7 +1405,7 @@ footer {
       Meld je aan via onderstaande knop.<br>
       <span style="font-size:0.9em; opacity:0.8;">Vergeet niet je dieetwens en/of allergieën door te geven.</span>
     </p>
-    <span class="rsvp-deadline reveal" data-role="dag">Aanmelden vóór vrijdag 15 mei 2026</span>
+    <span class="rsvp-deadline reveal">Aanmelden vóór vrijdag 15 mei 2026</span>
     <div class="reveal">
       <a class="rsvp-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeN2azG_SwaoCdsf4Z5A5Rh-ec4AM-NrKiZlJa7BE9OhAHeCQ/viewform?usp=header" target="_blank" data-role-href="dag:https://docs.google.com/forms/d/e/1FAIpQLSeN2azG_SwaoCdsf4Z5A5Rh-ec4AM-NrKiZlJa7BE9OhAHeCQ/viewform?usp=header|avond:https://docs.google.com/forms/d/e/1FAIpQLSfL3b7y3WPNqjr5HDZbIXgIUR0olbsU6YxOIJ5InfA-oJPKcQ/viewform?usp=header">Aanmelden</a>
     </div>
@@ -1438,7 +1479,7 @@ footer {
       </div>
 
       <div class="tl-item">
-        <div class="tl-time">vanaf 20:15</div>
+        <div class="tl-time">vanaf 20:15<br>– 00:15</div>
         <div class="tl-body">
           <div class="tl-event">Feest</div>
           <div class="tl-desc">Klein Hartenstein</div>
@@ -1778,7 +1819,6 @@ footer {
         <div>
           <div class="footer-names">Thom &amp; Louelle</div>
           <div class="footer-date">19 · 06 · <span id="easter-year" onclick="toggleWeather()" style="cursor:pointer; border-bottom:1px solid transparent; transition:border-color 0.2s;" title="">2026</span> · Oosterbeek</div>
-          <div style="font-family:'Jost',sans-serif; font-size:10px; font-weight:300; color:var(--mauve-mid); margin-top:0.35rem; line-height:1.7; opacity:0.75;">Thom Gunnink &amp; Louelle van Bergen Henegouw<br>Julianalaan 18, 6717 JK Ede</div>
         </div>
       </div>
       <div class="footer-divider"></div>
@@ -1971,6 +2011,54 @@ if (sessionStorage.getItem('scrolltop')) {
 }
 window.scrollTo(0, 0);
 
+// ── FOTO-UPLOAD SCHERM ──
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('fotos') || window.location.pathname.toLowerCase().includes('fotos')) {
+    const screen = document.getElementById('fotos-screen');
+    if (screen) {
+      screen.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      // Blob genereren voor foto-scherm
+      const AMPLITUDE_PX = 18, waves = 4, steps = 400, VB_W = 340;
+      function makeFotosBlob(svgW, svgH) {
+        const scaleX = VB_W / svgW;
+        const amp = AMPLITUDE_PX * scaleX;
+        const margin = 40 * scaleX;
+        const VB_H = svgH * scaleX;
+        const pts = [];
+        pts.push(`M${margin},0 L${VB_W - margin},0`);
+        let r = [];
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          r.push(`${((VB_W - margin) + amp * Math.sin(t * waves * 2 * Math.PI)).toFixed(2)},${(t * VB_H).toFixed(2)}`);
+        }
+        pts.push('L' + r.join(' L'));
+        pts.push(`L${margin},${VB_H}`);
+        let l = [];
+        for (let i = steps; i >= 0; i--) {
+          const t = i / steps;
+          l.push(`${(margin - amp * Math.sin(t * waves * 2 * Math.PI)).toFixed(2)},${(t * VB_H).toFixed(2)}`);
+        }
+        pts.push('L' + l.join(' L'));
+        pts.push('Z');
+        return { d: pts.join(' '), vbH: VB_H };
+      }
+      function updateFotosBlob() {
+        const svgEl = document.getElementById('fotosblobsvg');
+        if (!svgEl) return;
+        const w = window.innerWidth, h = window.innerHeight;
+        const { d, vbH } = makeFotosBlob(w, h);
+        svgEl.setAttribute('viewBox', `0 0 ${VB_W} ${vbH.toFixed(0)}`);
+        const path = document.getElementById('fotosblobpath');
+        if (path) path.setAttribute('d', d);
+      }
+      updateFotosBlob();
+      window.addEventListener('resize', updateFotosBlob);
+    }
+  }
+})();
+
 // ── URL TOKEN AUTO-LOGIN ──
 (async function() {
   const params = new URLSearchParams(window.location.search);
@@ -1994,15 +2082,17 @@ window.scrollTo(0, 0);
 
 // ── COUNTDOWN ──
 function updateCountdown() {
-  const target = new Date('2026-06-19T13:30:00');
-  const diff = target - new Date();
+  const now = new Date();
+  const target = new Date('2026-06-19');
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const d = document.getElementById('cd-days');
   if (!d) return;
+  const diff = target - today;
   if (diff <= 0) {
     d.textContent = '0';
     return;
   }
-  d.textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+  d.textContent = Math.round(diff / (1000 * 60 * 60 * 24));
 }
 updateCountdown();
 setInterval(updateCountdown, 1000 * 60);
