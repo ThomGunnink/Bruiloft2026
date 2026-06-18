@@ -685,6 +685,7 @@ nav a:hover { color: var(--gold); }
 .upload-btn {
   display: inline-flex;
   align-items: center;
+  gap: 0.6rem;
   font-family: 'Jost', sans-serif;
   font-size: 11px;
   font-weight: 500;
@@ -1239,47 +1240,56 @@ footer {
     <button onclick="devDate('now')">📅 Nu (normaal)</button>
     <button onclick="devDate('june12')">📅 12 juni (RSVP sluit)</button>
     <button onclick="devDate('june20')">📅 20 juni (na bruiloft)</button>
+    <div style="height:1px; background:rgba(201,168,76,0.2); margin:4px 0;"></div>
+    <button onclick="window.location.href = window.location.pathname + '?fotos'">📷 Foto-upload pagina</button>
   </div>
   <button class="dev-btn" onclick="document.getElementById('dev-menu').classList.toggle('open')">dev</button>
 </div>
 
 <!-- ═══════════════ FOTO-UPLOAD SCHERM ═══════════════ -->
-<div id="fotos-screen" style="display:none; position:fixed; inset:0; z-index:9999; background:#e2d0de; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; overflow:hidden;">
-  <div style="position:absolute; inset:0; pointer-events:none; z-index:0;">
+<div id="fotos-screen" style="display:none; position:fixed; inset:0; z-index:9000; background:#e2d0de; flex-direction:column; align-items:center; overflow-y:auto; padding:3rem 1.5rem 4rem;">
+  <div style="position:absolute; inset:0; pointer-events:none; z-index:0; overflow:hidden;">
     <svg id="fotosblobsvg" viewBox="0 0 340 560" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; opacity:0; animation:blobFade 1.2s ease 0.2s forwards; position:absolute; top:0; left:0;">
       <path d="M38,20 C18,80 18,140 38,200 C18,260 18,320 38,380 C18,440 18,500 38,540" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
       <path d="M302,20 C322,80 322,140 302,200 C322,260 322,320 302,380 C322,440 322,500 302,540" stroke="#C9A84C" stroke-width="0.8" opacity="0.4" fill="none"/>
       <path id="fotosblobpath" fill="#8B1A4A"/>
     </svg>
   </div>
-  <div style="position:relative; z-index:1; width:min(520px,90vw); opacity:0; animation:riseIn 0.9s ease 0.9s forwards;">
+  <div style="position:relative; z-index:1; width:min(560px,92vw); display:flex; flex-direction:column; align-items:center; text-align:center; opacity:0; animation:riseIn 0.9s ease 0.5s forwards;">
     <div>
       <span class="hero-name">Thom</span>
       <span class="hero-amp">&</span>
       <span class="hero-name">Louelle</span>
     </div>
-    <div class="hero-divider" style="opacity:1; animation:none; margin:1.8rem 0 1.4rem;">
+    <div class="hero-divider" style="opacity:1; animation:none;">
       <div class="hero-gem"></div>
     </div>
     <span class="hero-date" style="opacity:1; animation:none;">19 juni 2026</span>
     <span class="hero-location" style="opacity:1; animation:none;">Oosterbeek</span>
-    <div style="margin-top:2.5rem;">
+
+    <div style="margin-top:2.5rem; width:100%;">
       <span style="font-family:'Jost',sans-serif; font-size:10px; font-weight:500; letter-spacing:0.35em; text-transform:uppercase; color:var(--gold); opacity:0.85; display:block; margin-bottom:0.6rem;">Foto's delen</span>
-      <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(1.5rem,5vw,2.1rem); color:#4d0e2a; margin-bottom:0.6rem; line-height:1.2;">Foto's</div>
-      <p style="font-size:13px; font-weight:300; color:var(--mauve-dark); line-height:1.75; margin-bottom:1.75rem; letter-spacing:0.03em;">
+      <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:clamp(1.5rem,5vw,2.1rem); color:#4d0e2a; margin-bottom:0.9rem; line-height:1.2;">Foto's</div>
+      <p style="font-size:13px; font-weight:300; color:var(--mauve-light); line-height:1.85; margin-bottom:1.85rem; letter-spacing:0.03em;">
         Outfit check ✓ &nbsp;Confetti in je haar ✓<br>
         Deel jouw mooiste moment van de dag!
       </p>
-      <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
-        <button class="upload-btn" onclick="openUploadWidget()">
+      <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap; margin-bottom:0.5rem;">
+        <button class="upload-btn" onclick="openUploadWidget()" style="gap:0.65rem; color:var(--cream); font-weight:500;">
           <i class="ph ph-images"></i> Foto's uploaden
         </button>
-        <label class="upload-btn" style="background:rgba(77,14,42,0.08); color:#4d0e2a; border:1px solid rgba(201,168,76,0.4); cursor:pointer;">
+        <label class="upload-btn" style="gap:0.65rem; background:var(--wine-deeper); color:var(--cream); border:1.5px solid var(--gold); cursor:pointer;">
           <i class="ph ph-camera"></i> Camera
           <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="uploadCameraPhoto(this)"/>
         </label>
       </div>
-      <p id="upload-status-fotos" style="font-size:12px; color:var(--wine); min-height:1.5em; margin-top:1rem; letter-spacing:0.05em;"></p>
+      <p id="upload-status" style="font-size:12px; color:var(--wine); min-height:1.5em; margin-top:0.5rem; letter-spacing:0.05em;"></p>
+    </div>
+
+    <div style="width:100%; margin-top:1.5rem; border-top:1px solid rgba(139,26,74,0.15); padding-top:2.25rem;">
+      <div id="gallery-grid" class="gallery-grid"></div>
+      <div id="gallery-empty" style="font-size:13px; color:#7a4f70; opacity:0.7; padding:1rem 0;">Nog geen foto's gedeeld — wees de eerste!</div>
+      <button id="load-more-btn" onclick="loadMorePhotos()" style="display:none; margin-top:1.5rem; font-family:'Jost',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--wine); background:none; border:1px solid rgba(139,26,74,0.3); padding:0.7rem 1.5rem; cursor:pointer; border-radius:8px;"></button>
     </div>
   </div>
 </div>
@@ -2016,9 +2026,12 @@ window.scrollTo(0, 0);
   const params = new URLSearchParams(window.location.search);
   if (params.has('fotos') || window.location.pathname.toLowerCase().includes('fotos')) {
     const screen = document.getElementById('fotos-screen');
+    const pwScreen = document.getElementById('password-screen');
+    if (pwScreen) pwScreen.style.display = 'none';
+    window.galleryMode = 'full';
     if (screen) {
       screen.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = '';
       // Blob genereren voor foto-scherm
       const AMPLITUDE_PX = 18, waves = 4, steps = 400, VB_W = 340;
       function makeFotosBlob(svgW, svgH) {
